@@ -1,0 +1,1946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦴 Musculoskeletal-Systemic Health Integration Platform</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            color: #3498db;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+        
+        .warning {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        
+        .input-group input,
+        .input-group textarea,
+        .input-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        
+        .input-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        .spine-container {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .spine-grid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .spine-section-label {
+            font-weight: bold;
+            color: #3498db;
+            margin: 15px 0 5px 0;
+            font-size: 14px;
+        }
+        
+        .vertebra {
+            width: 70px;
+            height: 35px;
+            margin: 3px;
+            border: 2px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            transition: all 0.3s;
+            font-weight: bold;
+            border-radius: 5px;
+            position: relative;
+        }
+        
+        .vertebra:hover {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .vertebra.selected {
+            background: linear-gradient(135deg, #ef5350 0%, #c62828 100%);
+            color: white;
+            border-color: #b71c1c;
+            animation: pulse 0.5s;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        #subluxation-info {
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-radius: 8px;
+            border-left: 5px solid #4caf50;
+            display: none;
+        }
+        
+        #subluxation-info h4 {
+            margin-top: 0;
+            color: #2e7d32;
+        }
+        
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .risk-card {
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .risk-card h4 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+        
+        .risk-score {
+            font-size: 28px;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .supplement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .supplement-card {
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .supplement-card input[type="checkbox"] {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+        }
+        
+        .supplement-card:has(input:checked) {
+            border-color: #4caf50;
+            background: #f1f8f4;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+        }
+        
+        .supplement-card:hover {
+            border-color: #4caf50;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+        
+        .supplement-card h4 {
+            color: #4caf50;
+            margin-top: 0;
+        }
+        
+        .supplement-card ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .lab-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .lab-item {
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #9c27b0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .lab-item:hover {
+            background: #f3e5f5;
+            transform: translateX(3px);
+        }
+        
+        .lab-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 5px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        
+        .lab-item > div {
+            flex: 1;
+        }
+        
+        .lab-item h4 {
+            margin: 0 0 8px 0;
+            color: #9c27b0;
+            font-size: 16px;
+        }
+        
+        .lab-item p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        button:hover {
+            background: linear-gradient(135deg, #45a049 0%, #388e3c 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .deviation-btn {
+            display: block;
+            width: 100%;
+            margin-bottom: 8px;
+            padding: 12px;
+            background-color: #f8f9fa;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 14px;
+            color: #333;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .deviation-btn:hover {
+            background-color: #e9ecef;
+            border-color: #adb5bd;
+            transform: translateX(5px);
+        }
+        
+        .deviation-btn.selected {
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+            color: white;
+            border-color: #388e3c;
+            font-weight: bold;
+        }
+        
+        .deviation-list {
+            margin-top: 20px;
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .report-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .print-button {
+            background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+            margin-left: 10px;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+            button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🦴 Musculoskeletal-Systemic Health Integration Platform</h1>
+        
+        <div class="warning">
+            ⚠️ <strong>Professional Use Only:</strong> This assessment evaluates musculoskeletal findings and their established connections to systemic health. All recommendations support musculoskeletal health outcomes and are not intended to diagnose, treat, cure, or prevent any disease. Supplement recommendations are for musculoskeletal support. For comprehensive medical evaluation, patients should consult with their physician.
+        </div>
+
+        <!-- Patient Information Section -->
+        <div class="section">
+            <h2>📋 Patient Information & Musculoskeletal History</h2>
+            
+            <div class="input-group">
+                <label>Patient Name:</label>
+                <input type="text" id="patient-name" placeholder="Enter patient name">
+            </div>
+            
+            <div class="input-group">
+                <label>Date of Assessment:</label>
+                <input type="date" id="assessment-date">
+            </div>
+            
+            <div class="input-group">
+                <label>Age:</label>
+                <input type="number" id="patient-age" placeholder="Enter age">
+            </div>
+            
+            <h3>Medical History with Musculoskeletal Manifestations</h3>
+            <div class="input-group">
+                <textarea id="medical-history" placeholder="Enter relevant medical history (e.g., arthritis, previous injuries, surgeries, chronic conditions)"></textarea>
+            </div>
+            
+            <h3>Current Medications Affecting Musculoskeletal Health</h3>
+            <div class="input-group">
+                <textarea id="medications" placeholder="List current medications (e.g., NSAIDs, muscle relaxants, corticosteroids, bisphosphonates)"></textarea>
+            </div>
+            
+            <h3>Chief Complaint / Primary Symptoms</h3>
+            <div class="input-group">
+                <textarea id="chief-complaint" placeholder="Describe primary pain, stiffness, or functional limitations"></textarea>
+            </div>
+        </div>
+
+        <!-- Comprehensive Examination Section -->
+        <div class="section">
+            <h2>🔍 Comprehensive Musculoskeletal Examination</h2>
+            
+            <h3>Postural Deviation Analysis (TheraCiser/BACKSYS® & NECKSYS® Protocols)</h3>
+            <p><strong>Equipment:</strong> Spinal/Back = BACKSYS® | Cervical = NECKSYS®</p>
+            <p>Select the postural deviations and cervical distortions observed in the patient by clicking the buttons below. The report will include the corresponding TheraCiser corrective exercises with the standard BACKSYS/NECKSYS repetition protocol.</p>
+            
+            <h4 style="color: #2196f3; margin-top: 25px;">Spinal & Pelvic Postural Deviations (BACKSYS®)</h4>
+            
+            <div class="deviation-list">
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Right Lateral Translation (Thoracic)" data-description="Armless chair required. Insert retainer tab at mid-door level on left side. Sit with right side of body facing door. BACKSYS should be taut and held by the right hand. Keeping hips still, slide entire upper body to left, away from door. Keep your shoulders level. DO NOT BEND SIDEWAYS. Return and repeat.">Right Lateral Translation (Thoracic)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Left Lateral Translation (Thoracic)" data-description="Armless chair required. Insert retainer tab at mid-door level on right side. Sit with left side of body facing door. BACKSYS should be taut and held by the left hand. Keeping hips still, slide entire upper body to right, away from door. Keep your shoulders level. DO NOT BEND SIDEWAYS. Return and repeat.">Left Lateral Translation (Thoracic)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Right Lateral Flexion (Thoracic)" data-description="Armless chair required. Insert retainer tab at mid-door level. Sit with left side of body facing door. BACKSYS should be taut and held by the left hand. Keep hips still, bend upper body to left, away from door. Return and repeat.">Right Lateral Flexion (Thoracic)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Left Lateral Flexion (Thoracic)" data-description="Armless chair required. Insert retainer tab at mid-door level. Sit with right side of body facing door. BACKSYS should be taut and held by the right hand. Keep hips still, bend upper body to right, away from door. Return and repeat.">Left Lateral Flexion (Thoracic)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Right Rotation (Thoracic)" data-description="Armless chair required. Insert retainer tab at mid-door level. Sit with right side of body facing door. BACKSYS should be taut and held by the left hand. Keep hips still, rotate shoulders to left, away from door. Return and repeat.">Right Rotation (Thoracic)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Left Rotation (Thoracic)" data-description="Armless chair required. Insert retainer tab at mid-door level. Sit with left side of body facing door. BACKSYS should be taut and held by the right hand. Keep hips still, rotate shoulders to right, away from door. Return and repeat.">Left Rotation (Thoracic)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Anterior Translation (Thoracic)" data-description="Armless chair required. Insert retainer tab at mid-door level. Sit with back to door. BACKSYS should be taut and held in both hands. Cross arms in front of chest. Sit at edge of chair, facing door. Keeping hips still, slide entire upper body backward. DO NOT BEND BACKWARD. Return and repeat.">Anterior Translation (Thoracic)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Posterior Translation (Thoracic)" data-description="Armless chair required. Insert retainer tab at mid-door level. Sit with chest facing door. BACKSYS should be taut and held under the arms against the chest. Sit sideways on chair, facing away from door. Keeping hips still, slide entire upper body forward. DO NOT BEND FORWARD. Return and repeat.">Posterior Translation (Thoracic)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Flexion (Thoracic)" data-description="Insert retainer tab low in the door. BACKSYS should be taut and handles held at chest. Sit on floor facing door, with knees bent. Lean backward keeping back straight and handles at chest. Return and repeat.">Flexion (Thoracic)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Extension (Thoracic)" data-description="Armless chair required. Insert retainer tab at mid-door level. Sit facing away from door. BACKSYS should be taut and held over the shoulders. Arms should be crossed over the chest, grasping handles. Staying seated, bend forward. Return and repeat.">Extension (Thoracic)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Right Lateral Translation (Pelvic)" data-description="Insert retainer tab at waist level of door. BACKSYS should be taut and held with one handle in front of stomach and one handle behind back. Stand with right side of body facing door. Keeping feet still and not moving head, shift pelvis to left, away from door. Return and repeat.">Right Lateral Translation (Pelvic)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Left Lateral Translation (Pelvic)" data-description="Insert retainer tab at waist level of door. BACKSYS should be taut and held with one handle in front of stomach and one handle behind back. Stand with left side of body facing door. Keeping feet still and not moving head, shift pelvis to right, away from door. Return and repeat.">Left Lateral Translation (Pelvic)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Right Lateral Flexion (Pelvic)" data-description="No Exercise. Orthotics for spinal/pelvic stabilization recommended.">Right Lateral Flexion (Pelvic)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Left Lateral Flexion (Pelvic)" data-description="No Exercise. Orthotics for spinal/pelvic stabilization recommended.">Left Lateral Flexion (Pelvic)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Right Rotation (Pelvic)" data-description="Insert retainer tab at waist level of door. BACKSYS should be taut and held with one handle in front of stomach and one handle behind back. Stand with left side of body facing door. Keeping feet still, rotate to left, away from door. Return and repeat.">Right Rotation (Pelvic)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Left Rotation (Pelvic)" data-description="Insert retainer tab at waist level of door. BACKSYS should be taut and held with one handle in front of stomach and one handle behind back. Stand with right side of body facing door. Keeping feet still, rotate to right, away from door. Return and repeat.">Left Rotation (Pelvic)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Posterior Translation (Pelvic)" data-description="Insert retainer tab at waist level of door. BACKSYS should be taut. Face toward the door and grasp the handles high on each side of hips. Keeping feet and head still, slide hips forward. Return and repeat.">Posterior Translation (Pelvic)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Anterior Translation (Pelvic)" data-description="Face away from the door and grasp the handles high on each side of hips. BACKSYS should be taut. Keeping feet and head still, slide hips backward. Return and repeat.">Anterior Translation (Pelvic)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Flexion (Pelvic)" data-description="Insert retainer tab at waist level of door. BACKSYS should be taut. Face away from the door and grasp the handles low on each side of hips. Keeping feet still, tighten stomach muscles and rotate front of pelvis forward and upward. Return and repeat.">Flexion (Pelvic)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Extension (Pelvic)" data-description="Insert retainer tab at waist level of door. BACKSYS should be taut. Face toward the door and grasp the handles low on each side of hips. Keeping feet still, stomach muscles relaxed, rotate pelvis backward (pushing tailbone upward) slightly. Return and repeat.">Extension (Pelvic)</button>
+            </div>
+            
+            <h3 style="color: #673ab7; margin-top: 40px;">Cervical Postural Distortions (NECKSYS®)</h3>
+            <p>Select cervical distortions observed. NECKSYS exercises follow the same BACKSYS progression protocol (3x6 → 3x10 → 3x15).</p>
+            
+            <div class="deviation-list">
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Left Translation (Cervical)" data-description="NECKSYS® Exercise: RIGHT TRANSLATION. Position NECKSYS device for right translation resistance. Patient performs 3 sets of 6 reps at slow pace, pushing head to the right against resistance. Progress through standard BACKSYS protocol: increase resistance 3 times maximum, then 3 sets of 10 reps, finally 3 sets of 15 reps at slow pace. Duration: 3 weeks to 12+ months.">Left Translation (Cervical)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Right Translation (Cervical)" data-description="NECKSYS® Exercise: LEFT TRANSLATION. Position NECKSYS device for left translation resistance. Patient performs 3 sets of 6 reps at slow pace, pushing head to the left against resistance. Progress through standard BACKSYS protocol: increase resistance 3 times maximum, then 3 sets of 10 reps, finally 3 sets of 15 reps at slow pace. Duration: 3 weeks to 12+ months.">Right Translation (Cervical)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Left Lateral Flexion (Cervical)" data-description="NECKSYS® Exercise: RIGHT LATERAL FLEXION. Position NECKSYS device for right lateral flexion resistance. Patient performs 3 sets of 6 reps at slow pace, bending head toward right shoulder against resistance. Progress through standard BACKSYS protocol: increase resistance 3 times maximum, then 3 sets of 10 reps, finally 3 sets of 15 reps at slow pace. Duration: 3 weeks to 12+ months.">Left Lateral Flexion (Cervical)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Right Lateral Flexion (Cervical)" data-description="NECKSYS® Exercise: LEFT LATERAL FLEXION. Position NECKSYS device for left lateral flexion resistance. Patient performs 3 sets of 6 reps at slow pace, bending head toward left shoulder against resistance. Progress through standard BACKSYS protocol: increase resistance 3 times maximum, then 3 sets of 10 reps, finally 3 sets of 15 reps at slow pace. Duration: 3 weeks to 12+ months.">Right Lateral Flexion (Cervical)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Left Rotation (Cervical)" data-description="NECKSYS® Exercise: RIGHT ROTATION. Position NECKSYS device for right rotation resistance. Patient performs 3 sets of 6 reps at slow pace, rotating head to the right against resistance. Progress through standard BACKSYS protocol: increase resistance 3 times maximum, then 3 sets of 10 reps, finally 3 sets of 15 reps at slow pace. Duration: 3 weeks to 12+ months.">Left Rotation (Cervical)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Right Rotation (Cervical)" data-description="NECKSYS® Exercise: LEFT ROTATION. Position NECKSYS device for left rotation resistance. Patient performs 3 sets of 6 reps at slow pace, rotating head to the left against resistance. Progress through standard BACKSYS protocol: increase resistance 3 times maximum, then 3 sets of 10 reps, finally 3 sets of 15 reps at slow pace. Duration: 3 weeks to 12+ months.">Right Rotation (Cervical)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Anterior Translation (Cervical)" data-description="NECKSYS® Exercise: POSTERIOR TRANSLATION. Position NECKSYS device for posterior translation resistance. Patient performs 3 sets of 6 reps at slow pace, pushing head backward against resistance (keeping chin level - not extension). Progress through standard BACKSYS protocol: increase resistance 3 times maximum, then 3 sets of 10 reps, finally 3 sets of 15 reps at slow pace. Duration: 3 weeks to 12+ months.">Anterior Translation (Cervical)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Posterior Translation (Cervical)" data-description="NECKSYS® Exercise: ANTERIOR TRANSLATION. Position NECKSYS device for anterior translation resistance. Patient performs 3 sets of 6 reps at slow pace, pushing head forward against resistance (keeping chin level - not flexion). Progress through standard BACKSYS protocol: increase resistance 3 times maximum, then 3 sets of 10 reps, finally 3 sets of 15 reps at slow pace. Duration: 3 weeks to 12+ months.">Posterior Translation (Cervical)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Cervical Extension (Excessive)" data-description="NECKSYS® Exercise: CERVICAL FLEXION. Position NECKSYS device for flexion resistance. Patient performs 3 sets of 6 reps at slow pace, bringing chin toward chest against resistance. Progress through standard BACKSYS protocol: increase resistance 3 times maximum, then 3 sets of 10 reps, finally 3 sets of 15 reps at slow pace. Duration: 3 weeks to 12+ months.">Cervical Extension (Excessive)</button>
+                
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Cervical Flexion (Excessive)" data-description="NECKSYS® Exercise: CERVICAL EXTENSION. Position NECKSYS device for extension resistance. Patient performs 3 sets of 6 reps at slow pace, extending head backward against resistance. Progress through standard BACKSYS protocol: increase resistance 3 times maximum, then 3 sets of 10 reps, finally 3 sets of 15 reps at slow pace. Duration: 3 weeks to 12+ months.">Cervical Flexion (Excessive)</button>
+            </div>
+            
+            <p style="margin-top: 20px;"><strong>TheraCiser/BACKSYS/NECKSYS® Repetition Protocol:</strong></p>
+            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin-top: 10px; border-radius: 5px;">
+                <p style="margin: 0 0 10px 0; font-weight: bold;">Phase III: Back & Cervical Rehab (3 Weeks to 12+ Months)</p>
+                <ol style="margin: 0; padding-left: 20px;">
+                    <li><strong>Start:</strong> 3 sets of 6 reps at a slow pace</li>
+                    <li><strong>Increase Resistance:</strong> 3 times maximum (progress when patient can complete sets comfortably)</li>
+                    <li><strong>Progress to:</strong> 3 sets of 10 reps at a slow pace</li>
+                    <li><strong>Final Stage:</strong> 3 sets of 15 reps at a slow pace</li>
+                </ol>
+                <p style="margin: 10px 0 0 0; font-style: italic;"><strong>Note:</strong> Both BACKSYS® (back/spine) and NECKSYS® (cervical) follow this same progression protocol. Match distortion with corrective exercise per flow-chart.</p>
+            </div>
+            
+            <p style="margin-top: 15px;"><strong>Integration Notes:</strong> Use X-ray or postural analysis to identify spinal/pelvic deviations and cervical distortions, then select and prescribe appropriate BACKSYS® or NECKSYS® exercises. Monitor progress with follow-up assessments. Combine with vertebral subluxation data and F.I.T./MoveWell3 findings for comprehensive personalized treatment plans.</p>
+            
+            <div class="input-group">
+                <label>Additional Postural Findings:</label>
+                <textarea id="posture-notes" placeholder="Describe any additional postural observations"></textarea>
+            </div>
+            
+            <h3>Range of Motion & Strength Testing</h3>
+            <div class="input-group">
+                <textarea id="rom-findings" placeholder="Enter ROM measurements and strength test results (e.g., Cervical ROM: Flexion 45°, Extension 40°; Shoulder: Limited abduction R side)"></textarea>
+            </div>
+            
+            <h3>Palpation & Joint Mobility</h3>
+            <div class="input-group">
+                <textarea id="palpation-findings" placeholder="Note areas of tenderness, trigger points, muscle tension, joint restrictions, and crepitus"></textarea>
+            </div>
+            
+            <h3>Neurological Screening</h3>
+            <div class="input-group">
+                <textarea id="neuro-findings" placeholder="Document reflexes, sensation, motor strength, and special tests (e.g., DTRs normal bilaterally, decreased sensation L5 distribution)"></textarea>
+            </div>
+            
+            <h3>Functional Movement Analysis</h3>
+            <div class="input-group">
+                <textarea id="functional-findings" placeholder="Record results from functional tests (e.g., squat assessment, gait analysis, balance testing)"></textarea>
+            </div>
+        </div>
+
+        <!-- F.I.T. Assessment Section -->
+        <div class="section">
+            <h2>🎯 F.I.T. (Fitness Integration Technique) Foundation Assessment</h2>
+            <p><strong>Purpose:</strong> The F.I.T. Foundation tests evaluate neurological integrity, bilateral balance, and functional capacity. These tests must show competency (passing 4 of 5 foundation tests) before proceeding to movement assessment.</p>
+            
+            <div class="info-box">
+                <strong>Clinical Significance:</strong> F.I.T. testing reveals nervous system function, predicts long-term health outcomes, and identifies dysfunction before pain develops. Grip strength alone predicts all-cause mortality, cardiovascular disease, and chronic degenerative conditions.
+            </div>
+            
+            <h3>Foundation Tests (Must Pass 4/5)</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; margin-top: 20px;">
+                
+                <!-- Test 1: Testability & Switching -->
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #2196f3;">
+                    <h4 style="color: #2196f3; margin-top: 0;">1. Testability & Switching</h4>
+                    <p><strong>Pass/Fail:</strong></p>
+                    <label><input type="radio" name="testability" value="pass"> Pass - Body responds predictably to testing</label><br>
+                    <label><input type="radio" name="testability" value="fail"> Fail - False positives, unpredictable responses</label>
+                    
+                    <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;"><strong>If Fail - Consequences:</strong></p>
+                    <ul style="font-size: 14px; margin: 10px 0;">
+                        <li><strong>Immediate:</strong> Inability to accurate assess dysfunction; false test results</li>
+                        <li><strong>Long-term:</strong> Chronic nervous system disruption, poor adaptation to stress, impaired healing response, persistent inflammation</li>
+                    </ul>
+                    <p style="font-size: 13px; color: #666;"><strong>Correction:</strong> Laser therapy at glabella and K-27 points, specific adjustments, or homeopathic remedies</p>
+                </div>
+                
+                <!-- Test 2: Bilateral Scales -->
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #2196f3;">
+                    <h4 style="color: #2196f3; margin-top: 0;">2. Bilateral Scales (Weight Distribution)</h4>
+                    <p><strong>Normal:</strong> ≤10 lbs difference between sides</p>
+                    <div class="input-group">
+                        <label>Right Scale (lbs):</label>
+                        <input type="number" id="right-scale" placeholder="Right weight">
+                    </div>
+                    <div class="input-group">
+                        <label>Left Scale (lbs):</label>
+                        <input type="number" id="left-scale" placeholder="Left weight">
+                    </div>
+                    <label><input type="radio" name="bilateral" value="pass"> Pass (≤10 lbs difference)</label><br>
+                    <label><input type="radio" name="bilateral" value="fail"> Fail (>10 lbs difference)</label>
+                    
+                    <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;"><strong>If Fail - Consequences:</strong></p>
+                    <ul style="font-size: 14px; margin: 10px 0;">
+                        <li><strong>Immediate:</strong> Unilateral joint loading, postural compensation</li>
+                        <li><strong>Long-term:</strong> Accelerated unilateral joint degeneration (hip, knee, ankle), scoliosis development, pelvic dysfunction, increased fall risk, chronic SI joint dysfunction</li>
+                    </ul>
+                </div>
+                
+                <!-- Test 3: Standing Stress Test -->
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #2196f3;">
+                    <h4 style="color: #2196f3; margin-top: 0;">3. Standing Stress Test (SI Ligament)</h4>
+                    <p><strong>Pass/Fail:</strong></p>
+                    <label><input type="radio" name="standing-stress" value="pass"> Pass - No sacral instability</label><br>
+                    <label><input type="radio" name="standing-stress" value="fail"> Fail - Positive test indicates sprained SI ligament</label>
+                    
+                    <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;"><strong>If Fail - Consequences:</strong></p>
+                    <ul style="font-size: 14px; margin: 10px 0;">
+                        <li><strong>Immediate:</strong> Chronic low back instability, compensation patterns affecting entire kinetic chain</li>
+                        <li><strong>Long-term:</strong> Degenerative disc disease, carpal tunnel syndrome, plantar fasciitis, shoulder dysfunction, chronic pain syndromes, failed back surgery syndrome</li>
+                        <li><strong>Note:</strong> SI dysfunction is the most missed and mismanaged joint in the body</li>
+                    </ul>
+                    <p style="font-size: 13px; color: #666;"><strong>Correction:</strong> Sacro-iliac belt, SOT/AK techniques, pelvic strengthening and stabilization</p>
+                </div>
+                
+                <!-- Test 4: Brain-Cortex -->
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #2196f3;">
+                    <h4 style="color: #2196f3; margin-top: 0;">4. Brain-Cortex (Voluntary Motion)</h4>
+                    <p><strong>Tests:</strong> Band extensions, Front raise, Quadricep stretch assessment</p>
+                    <label><input type="radio" name="brain-cortex" value="pass"> Pass - Symmetric voluntary movement control</label><br>
+                    <label><input type="radio" name="brain-cortex" value="fail"> Fail - Asymmetry or inability to perform</label>
+                    
+                    <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;"><strong>If Fail - Consequences:</strong></p>
+                    <ul style="font-size: 14px; margin: 10px 0;">
+                        <li><strong>Immediate:</strong> Poor motor control, coordination deficits, increased injury risk</li>
+                        <li><strong>Long-term:</strong> Progressive movement dysfunction, accelerated brain aging, increased fall risk with age, cognitive decline correlation, reduced athletic performance, chronic compensation patterns</li>
+                    </ul>
+                </div>
+                
+                <!-- Test 5: Cerebellum -->
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #2196f3;">
+                    <h4 style="color: #2196f3; margin-top: 0;">5. Cerebellum (Balance & Coordination)</h4>
+                    <p><strong>5-Component Protocol:</strong></p>
+                    <ol style="font-size: 14px;">
+                        <li>Romberg's Test (eyes closed, feet together)</li>
+                        <li>March in place (eyes closed)</li>
+                        <li>Airex pad balance</li>
+                        <li>Sobriety tests (finger to nose, heel-toe walk)</li>
+                        <li>SlackBlock challenge</li>
+                    </ol>
+                    <label><input type="radio" name="cerebellum" value="pass"> Pass - Normal balance and coordination</label><br>
+                    <label><input type="radio" name="cerebellum" value="fail"> Fail - Positive findings on any component</label>
+                    
+                    <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;"><strong>If Fail - Consequences:</strong></p>
+                    <ul style="font-size: 14px; margin: 10px 0;">
+                        <li><strong>Immediate:</strong> Fall risk, poor proprioception, vestibular dysfunction</li>
+                        <li><strong>Long-term:</strong> Progressive cerebellar degeneration, increased fall-related injury with aging, autonomic nervous system dysregulation, impaired motor learning, chronic dizziness/vertigo, cognitive processing issues</li>
+                    </ul>
+                </div>
+                
+            </div>
+            
+            <h3 style="margin-top: 40px;">Functional Capacity Tests</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; margin-top: 20px;">
+                
+                <!-- Test 6: JAMAR Grip Test -->
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #9c27b0;">
+                    <h4 style="color: #9c27b0; margin-top: 0;">6. JAMAR Grip Test (Static Strength)</h4>
+                    <div class="input-group">
+                        <label>Right Hand (lbs/kg):</label>
+                        <input type="number" id="jamar-right" placeholder="Right grip">
+                    </div>
+                    <div class="input-group">
+                        <label>Left Hand (lbs/kg):</label>
+                        <input type="number" id="jamar-left" placeholder="Left grip">
+                    </div>
+                    
+                    <p><strong>Normal Values (JAMAR - lbs):</strong></p>
+                    <table style="width: 100%; font-size: 13px; border-collapse: collapse;">
+                        <tr style="background: #f5f5f5;">
+                            <th style="padding: 8px; border: 1px solid #ddd;">Age</th>
+                            <th style="padding: 8px; border: 1px solid #ddd;">Male</th>
+                            <th style="padding: 8px; border: 1px solid #ddd;">Female</th>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; border: 1px solid #ddd;">20-29</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">105-113</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">63-70</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; border: 1px solid #ddd;">30-39</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">105-112</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">66-73</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; border: 1px solid #ddd;">40-49</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">102-109</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">61-69</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; border: 1px solid #ddd;">50-59</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">95-102</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">55-63</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; border: 1px solid #ddd;">60-69</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">84-91</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">47-55</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; border: 1px solid #ddd;">70+</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">69-77</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">40-47</td>
+                        </tr>
+                    </table>
+                    
+                    <label style="margin-top: 15px;"><input type="radio" name="jamar" value="pass"> Pass (within age/sex norms)</label><br>
+                    <label><input type="radio" name="jamar" value="fail"> Fail (below norms)</label>
+                    
+                    <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;"><strong>If Fail - Consequences:</strong></p>
+                    <ul style="font-size: 14px; margin: 10px 0;">
+                        <li><strong>Immediate:</strong> Reduced functional capacity, weak brachial plexus (C5-T1)</li>
+                        <li><strong>Long-term:</strong> Increased all-cause mortality risk, cardiovascular disease correlation, type 2 diabetes risk, frailty syndrome development, cognitive decline association, reduced independence with aging, thyroid/pulmonary dysfunction (C5-T1 innervation)</li>
+                        <li><strong>Research:</strong> Low grip strength predicts health destiny across lifespan</li>
+                    </ul>
+                </div>
+                
+                <!-- Test 7: Captains of Crush Grip Strength -->
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #9c27b0;">
+                    <h4 style="color: #9c27b0; margin-top: 0;">7. Grip Strength (Captains of Crush)</h4>
+                    <p><strong>Gripper Levels:</strong></p>
+                    <ul style="font-size: 13px;">
+                        <li><strong>Guide:</strong> 60 lbs (Most women and beginners)</li>
+                        <li><strong>Sport:</strong> 80 lbs</li>
+                        <li><strong>Trainer:</strong> 100 lbs (Average male baseline)</li>
+                        <li><strong>#0.5:</strong> 120 lbs (Some strength training)</li>
+                        <li><strong>#1:</strong> 140 lbs (Solid training)</li>
+                        <li><strong>#2:</strong> 200 lbs (Great achievement)</li>
+                        <li><strong>#3:</strong> 280 lbs (Elite grip strength)</li>
+                    </ul>
+                    
+                    <div class="input-group">
+                        <label>Highest CoC Closed (R/L):</label>
+                        <input type="text" id="coc-level" placeholder="e.g., #1 / Trainer">
+                    </div>
+                    <div class="input-group">
+                        <label>Repetitions Achieved:</label>
+                        <input type="number" id="coc-reps" placeholder="Number of reps">
+                    </div>
+                    
+                    <p style="font-size: 13px; padding: 8px; background: #e3f2fd; border-radius: 5px;"><strong>Progression Rule:</strong> When 10-15 consecutive full reps achieved, advance to next gripper level</p>
+                    
+                    <label><input type="radio" name="coc" value="pass"> Pass (Trainer or higher for age/sex)</label><br>
+                    <label><input type="radio" name="coc" value="fail"> Fail (Below Trainer level)</label>
+                    
+                    <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;"><strong>Same consequences as JAMAR - Plus:</strong></p>
+                    <ul style="font-size: 14px; margin: 10px 0;">
+                        <li>Measures strength through full range of motion (real-world function)</li>
+                        <li>Provides progressive training solution (unlike JAMAR)</li>
+                        <li>Neuroplasticity enhancement through grip training</li>
+                    </ul>
+                </div>
+                
+                <!-- Test 8-16 continuation... -->
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #ff9800;">
+                    <h4 style="color: #ff9800; margin-top: 0;">8. Band Extensions</h4>
+                    <p><strong>Pass:</strong> 10+ reps each position (palms up, down, thumbs down) bilaterally symmetric</p>
+                    <label><input type="radio" name="band-ext" value="pass"> Pass</label><br>
+                    <label><input type="radio" name="band-ext" value="fail"> Fail</label>
+                    
+                    <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;"><strong>If Fail - Consequences:</strong></p>
+                    <ul style="font-size: 14px; margin: 10px 0;">
+                        <li><strong>Immediate:</strong> Shoulder instability, poor scapular control, impaired overhead function</li>
+                        <li><strong>Long-term:</strong> Rotator cuff degeneration, shoulder impingement syndrome, cervical spine compensation, chronic shoulder pain, frozen shoulder development, postural kyphosis</li>
+                    </ul>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #ff9800;">
+                    <h4 style="color: #ff9800; margin-top: 0;">9. Front Raise</h4>
+                    <p><strong>Pass:</strong> Arms to 170° overhead without compensation</p>
+                    <label><input type="radio" name="front-raise" value="pass"> Pass</label><br>
+                    <label><input type="radio" name="front-raise" value="fail"> Fail</label>
+                    
+                    <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;"><strong>If Fail - Consequences:</strong></p>
+                    <ul style="font-size: 14px; margin: 10px 0;">
+                        <li><strong>Immediate:</strong> Limited overhead reach, shoulder dysfunction, thoracic restriction</li>
+                        <li><strong>Long-term:</strong> Chronic shoulder pathology, loss of independence in ADLs, inability to perform overhead activities, compensatory neck and back pain</li>
+                    </ul>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #4caf50;">
+                    <h4 style="color: #4caf50; margin-top: 0;">10. Slant Board (Ankle Dorsiflexion)</h4>
+                    <p><strong>Pass:</strong> Level 3+ single leg stance, heels flat</p>
+                    <label><input type="radio" name="slant-board" value="pass"> Pass</label><br>
+                    <label><input type="radio" name="slant-board" value="fail"> Fail</label>
+                    
+                    <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;"><strong>If Fail - Consequences:</strong></p>
+                    <ul style="font-size: 14px; margin: 10px 0;">
+                        <li><strong>Immediate:</strong> Restricted ankle mobility, altered gait mechanics, squat dysfunction</li>
+                        <li><strong>Long-term:</strong> Plantar fasciitis, Achilles tendinopathy, knee osteoarthritis, hip dysfunction, chronic calf tightness, increased fall risk, bunion formation</li>
+                    </ul>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #4caf50;">
+                    <h4 style="color: #4caf50; margin-top: 0;">11. SlackBlock (Balance)</h4>
+                    <p><strong>Pass:</strong> 30+ seconds single leg stance</p>
+                    <label><input type="radio" name="slackblock" value="pass"> Pass</label><br>
+                    <label><input type="radio" name="slackblock" value="fail"> Fail</label>
+                    
+                    <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;"><strong>If Fail - Consequences:</strong></p>
+                    <ul style="font-size: 14px; margin: 10px 0;">
+                        <li><strong>Immediate:</strong> Poor proprioception, fall risk, ankle instability</li>
+                        <li><strong>Long-term:</strong> Recurrent ankle sprains, chronic ankle instability, vestibular dysfunction, increased fall-related injury with aging, functional decline</li>
+                    </ul>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #4caf50;">
+                    <h4 style="color: #4caf50; margin-top: 0;">12. Calf Master</h4>
+                    <p><strong>Pass:</strong> Bilateral symmetry, no pain</p>
+                    <label><input type="radio" name="calf-master" value="pass"> Pass</label><br>
+                    <label><input type="radio" name="calf-master" value="fail"> Fail</label>
+                    
+                    <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;"><strong>If Fail - Consequences:</strong></p>
+                    <ul style="font-size: 14px; margin: 10px 0;">
+                        <li><strong>Immediate:</strong> Posterior chain weakness, reduced push-off power</li>
+                        <li><strong>Long-term:</strong> Achilles degeneration, plantar fasciitis, reduced walking efficiency, gait abnormalities, knee pain, compromised athletic performance</li>
+                    </ul>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #e91e63;">
+                    <h4 style="color: #e91e63; margin-top: 0;">13. CoreStretch (Thoracic/Lumbar Flexibility)</h4>
+                    <p><strong>Pass:</strong> Level 3+ seated, torso >45° from vertical</p>
+                    <label><input type="radio" name="corestretch" value="pass"> Pass</label><br>
+                    <label><input type="radio" name="corestretch" value="fail"> Fail</label>
+                    
+                    <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;"><strong>If Fail - Consequences:</strong></p>
+                    <ul style="font-size: 14px; margin: 10px 0;">
+                        <li><strong>Immediate:</strong> Spinal rigidity, limited trunk rotation, reduced breathing capacity</li>
+                        <li><strong>Long-term:</strong> Degenerative disc disease, chronic back pain, loss of spinal mobility, respiratory compromise, postural deformity, reduced quality of life</li>
+                    </ul>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #e91e63;">
+                    <h4 style="color: #e91e63; margin-top: 0;">14. Quadricep Stretch (Hip Flexor/Quad Flexibility)</h4>
+                    <p><strong>Pass:</strong> Heel to buttock contact bilaterally</p>
+                    <label><input type="radio" name="quad-stretch" value="pass"> Pass</label><br>
+                    <label><input type="radio" name="quad-stretch" value="fail"> Fail</label>
+                    
+                    <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;"><strong>If Fail - Consequences:</strong></p>
+                    <ul style="font-size: 14px; margin: 10px 0;">
+                        <li><strong>Immediate:</strong> Anterior pelvic tilt, knee extension restriction, gait abnormalities</li>
+                        <li><strong>Long-term:</strong> Patellofemoral pain syndrome, low back pain, hip flexor tendinopathy, reduced running/walking efficiency, postural distortion, accelerated joint degeneration</li>
+                    </ul>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #00bcd4;">
+                    <h4 style="color: #00bcd4; margin-top: 0;">15. Side Lying Clams (Hip External Rotation)</h4>
+                    <p><strong>Pass:</strong> 20+ reps without compensation, bilateral symmetry</p>
+                    <label><input type="radio" name="clams" value="pass"> Pass</label><br>
+                    <label><input type="radio" name="clams" value="fail"> Fail</label>
+                    
+                    <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;"><strong>If Fail - Consequences:</strong></p>
+                    <ul style="font-size: 14px; margin: 10px 0;">
+                        <li><strong>Immediate:</strong> Glute medius weakness, Trendelenburg gait, knee valgus</li>
+                        <li><strong>Long-term:</strong> IT band syndrome, patellofemoral pain, hip osteoarthritis, chronic low back pain, SI joint dysfunction, increased risk of ACL injury</li>
+                    </ul>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #00bcd4;">
+                    <h4 style="color: #00bcd4; margin-top: 0;">16. Bird Dog (Core Stability)</h4>
+                    <p><strong>Pass:</strong> 30+ seconds hold each side without compensation</p>
+                    <label><input type="radio" name="bird-dog" value="pass"> Pass</label><br>
+                    <label><input type="radio" name="bird-dog" value="fail"> Fail</label>
+                    
+                    <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;"><strong>If Fail - Consequences:</strong></p>
+                    <ul style="font-size: 14px; margin: 10px 0;">
+                        <li><strong>Immediate:</strong> Core instability, poor lumbar stabilization, movement dysfunction</li>
+                        <li><strong>Long-term:</strong> Chronic spinal instability, recurrent low back injury, disc herniation risk, poor balance with aging, functional decline, loss of independence in ADLs</li>
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- MoveWell3 Level 1 Screen Section -->
+        <div class="section">
+            <h2>🏃 MoveWell3 Level 1 Movement Screen</h2>
+            <p><strong>Purpose:</strong> Systematic screening of all major movement patterns to identify dysfunction requiring Level 2 detailed assessment.</p>
+            
+            <div class="info-box">
+                <strong>Protocol:</strong> All tests performed in Level 1. Any dysfunction identified moves to Level 2 detailed assessment for that specific region.
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; margin-top: 20px;">
+                
+                <!-- Cervical Tests -->
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #673ab7;">
+                    <h4 style="color: #673ab7; margin-top: 0;">Cervical Assessment</h4>
+                    
+                    <p><strong>Cervical Rotation:</strong></p>
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <div>
+                            <label>Right:</label>
+                            <input type="number" style="width: 70px;" placeholder="°">
+                        </div>
+                        <div>
+                            <label>Left:</label>
+                            <input type="number" style="width: 70px;" placeholder="°">
+                        </div>
+                    </div>
+                    <label><input type="radio" name="cerv-rot" value="pass"> Pass (80° bilateral)</label><br>
+                    <label><input type="radio" name="cerv-rot" value="fail"> Fail (<80° or asymmetric)</label>
+                    
+                    <p style="margin-top: 15px;"><strong>Cervical Flexion:</strong></p>
+                    <label><input type="radio" name="cerv-flex" value="pass"> Pass (Chin to chest, 50°)</label><br>
+                    <label><input type="radio" name="cerv-flex" value="fail"> Fail (Tissue approximation limited)</label>
+                    
+                    <p style="margin-top: 15px;"><strong>Cervical Extension:</strong></p>
+                    <label><input type="radio" name="cerv-ext" value="pass"> Pass (80° without shoulder shrug)</label><br>
+                    <label><input type="radio" name="cerv-ext" value="fail"> Fail (Limited ROM or compensation)</label>
+                    
+                    <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;"><strong>If Fail - Consequences:</strong></p>
+                    <ul style="font-size: 14px; margin: 10px 0;">
+                        <li><strong>Immediate:</strong> Headaches, nerve root compression, limited driving safety, reduced visual field during movement</li>
+                        <li><strong>Long-term:</strong> Cervical spondylosis, chronic headaches/migraines, cervicogenic dizziness, upper extremity radiculopathy, balance dysfunction, increased fall risk, forward head posture with thoracic kyphosis</li>
+                    </ul>
+                </div>
+                
+                <!-- Thoracic Tests -->
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #673ab7;">
+                    <h4 style="color: #673ab7; margin-top: 0;">Thoracic Assessment</h4>
+                    
+                    <p><strong>Lumbar Locked Thoracic Rotation:</strong></p>
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <div>
+                            <label>Right:</label>
+                            <input type="number" style="width: 70px;" placeholder="°">
+                        </div>
+                        <div>
+                            <label>Left:</label>
+                            <input type="number" style="width: 70px;" placeholder="°">
+                        </div>
+                    </div>
+                    <label><input type="radio" name="thor-rot" value="pass"> Pass (50° bilateral, no torso extension)</label><br>
+                    <label><input type="radio" name="thor-rot" value="fail"> Fail (<50° or compensations)</label>
+                    
+                    <p style="margin-top: 15px;"><strong>Overhead Reach:</strong></p>
+                    <label><input type="radio" name="overhead" value="pass"> Pass (170° shoulder flexion, no compensation)</label><br>
+                    <label><input type="radio" name="overhead" value="fail"> Fail (Arms drop, winging scapula, hand whip)</label>
+                    
+                    <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;"><strong>If Fail - Consequences:</strong></p>
+                    <ul style="font-size: 14px; margin: 10px 0;">
+                        <li><strong>Immediate:</strong> Breathing dysfunction, shoulder impingement, poor posture</li>
+                        <li><strong>Long-term:</strong> Chronic thoracic pain, restrictive respiratory pattern, shoulder pathology, postural kyphosis, reduced cardiovascular capacity, rib dysfunction, visceral organ compression</li>
+                    </ul>
+                </div>
+                
+                <!-- Shoulder Test -->
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #3f51b5;">
+                    <h4 style="color: #3f51b5; margin-top: 0;">Shoulder Touch Test</h4>
+                    <p><strong>R Top/L Bottom:</strong></p>
+                    <label><input type="radio" name="shoulder-rl" value="pass"> Pass (hands touch)</label><br>
+                    <label><input type="radio" name="shoulder-rl" value="fail"> Fail (distance: <input type="text" style="width: 60px;" placeholder="inches">)</label>
+                    
+                    <p><strong>L Top/R Bottom:</strong></p>
+                    <label><input type="radio" name="shoulder-lr" value="pass"> Pass (hands touch)</label><br>
+                    <label><input type="radio" name="shoulder-lr" value="fail"> Fail (distance: <input type="text" style="width: 60px;" placeholder="inches">)</label>
+                    
+                    <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;"><strong>If Fail - Consequences:</strong></p>
+                    <ul style="font-size: 14px; margin: 10px 0;">
+                        <li><strong>Immediate:</strong> Limited shoulder ROM, difficulty with ADLs (dressing, grooming), asymmetric scapular function</li>
+                        <li><strong>Long-term:</strong> Rotator cuff tears, frozen shoulder, chronic shoulder pain, reduced upper extremity function, postural asymmetry, compensatory thoracic and cervical dysfunction</li>
+                    </ul>
+                </div>
+                
+                <!-- Squat Tests -->
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #3f51b5;">
+                    <h4 style="color: #3f51b5; margin-top: 0;">Deep Squat Assessment</h4>
+                    <p><strong>Overhead Deep Squat:</strong></p>
+                    <label><input type="radio" name="squat" value="pass"> Pass (thighs parallel, feet don't flatten, knees track properly)</label><br>
+                    <label><input type="radio" name="squat" value="fail"> Fail (excessive lean, knee deviation, feet flatten, loss of balance)</label>
+                    
+                    <p style="margin-top: 10px; font-size: 14px;"><strong>Dysfunctions Noted:</strong></p>
+                    <div style="font-size: 13px;">
+                        <label><input type="checkbox"> Excess anterior pelvic tilt</label><br>
+                        <label><input type="checkbox"> Knees in/out</label><br>
+                        <label><input type="checkbox"> Feet flatten or externally rotate</label><br>
+                        <label><input type="checkbox"> Excess forward lean</label><br>
+                        <label><input type="checkbox"> Arms drop</label><br>
+                        <label><input type="checkbox"> Loss of balance</label>
+                    </div>
+                    
+                    <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;"><strong>If Fail - Consequences:</strong></p>
+                    <ul style="font-size: 14px; margin: 10px 0;">
+                        <li><strong>Immediate:</strong> Multi-joint dysfunction, global movement impairment, increased injury risk</li>
+                        <li><strong>Long-term:</strong> Hip and knee osteoarthritis, chronic low back pain, balance impairment, functional decline with aging, inability to perform fundamental movement patterns, loss of independence</li>
+                    </ul>
+                </div>
+                
+                <!-- Hip/Lower Extremity Tests -->
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #009688;">
+                    <h4 style="color: #009688; margin-top: 0;">Hip & Lower Extremity Tests</h4>
+                    
+                    <p><strong>Straight Leg Raise:</strong></p>
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <div>
+                            <label>Right:</label>
+                            <input type="number" style="width: 70px;" placeholder="°">
+                        </div>
+                        <div>
+                            <label>Left:</label>
+                            <input type="number" style="width: 70px;" placeholder="°">
+                        </div>
+                    </div>
+                    <label><input type="radio" name="slr" value="pass"> Pass (70° bilateral)</label><br>
+                    <label><input type="radio" name="slr" value="fail"> Fail (<70° or asymmetric)</label>
+                    
+                    <p style="margin-top: 15px;"><strong>Glute Bridge:</strong></p>
+                    <label><input type="radio" name="glute-bridge" value="pass"> Pass (bilateral/unilateral, no compensation)</label><br>
+                    <label><input type="radio" name="glute-bridge" value="fail"> Fail (thoracolumbar hyperextension, lack of hip extension)</label>
+                    
+                    <p style="margin-top: 15px;"><strong>FABER Test:</strong></p>
+                    <label><input type="radio" name="faber" value="pass"> Pass (bilateral 45°)</label><br>
+                    <label><input type="radio" name="faber" value="fail"> Fail (Limited ROM, asymmetric)</label>
+                    
+                    <p style="margin-top: 15px;"><strong>Thomas Test:</strong></p>
+                    <label><input type="radio" name="thomas" value="pass"> Pass (bottom leg contact, knee >100°)</label><br>
+                    <label><input type="radio" name="thomas" value="fail"> Fail (hip flexor tightness, leg abduction)</label>
+                    
+                    <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;"><strong>If Fail - Consequences:</strong></p>
+                    <ul style="font-size: 14px; margin: 10px 0;">
+                        <li><strong>Immediate:</strong> Hamstring tightness, hip flexor restriction, glute weakness, altered gait</li>
+                        <li><strong>Long-term:</strong> Hip osteoarthritis, chronic low back pain, pelvic dysfunction, hamstring tears, hip labral tears, reduced athletic performance, compensatory knee and ankle dysfunction</li>
+                    </ul>
+                </div>
+                
+                <!-- Trunk Tests -->
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #009688;">
+                    <h4 style="color: #009688; margin-top: 0;">Trunk Flexibility Tests</h4>
+                    
+                    <p><strong>Toe Touch:</strong></p>
+                    <label><input type="radio" name="toe-touch" value="pass"> Pass (fingertips to floor, segmental curve)</label><br>
+                    <label><input type="radio" name="toe-touch" value="fail"> Fail (knees bend, non-uniform curve, limited reach)</label>
+                    
+                    <p style="margin-top: 15px;"><strong>Overhead Extension:</strong></p>
+                    <label><input type="radio" name="overhead-ext" value="pass"> Pass (uniform extension, no excessive lordosis)</label><br>
+                    <label><input type="radio" name="overhead-ext" value="fail"> Fail (loss of balance, lack of weight shift, non-uniform)</label>
+                    
+                    <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;"><strong>If Fail - Consequences:</strong></p>
+                    <ul style="font-size: 14px; margin: 10px 0;">
+                        <li><strong>Immediate:</strong> Posterior chain tightness, spinal segmentation dysfunction, limited functional movement</li>
+                        <li><strong>Long-term:</strong> Chronic low back pain, disc herniation risk, hamstring tears, reduced spinal mobility, postural distortion, functional limitations in bending/lifting activities</li>
+                    </ul>
+                </div>
+                
+            </div>
+            
+            <div class="input-group" style="margin-top: 30px;">
+                <label>MoveWell3 Level 1 Additional Notes:</label>
+                <textarea id="movewell-notes" placeholder="Document any additional findings, compensations, or areas requiring Level 2 detailed assessment"></textarea>
+            </div>
+        </div>
+
+        <!-- Vertebral Subluxation/Meric Chart Section -->
+        <div class="section">
+            <h2>🎯 Vertebral Subluxation & Organ System Analysis (Meric Chart)</h2>
+            <p><strong>Instructions:</strong> Click on any vertebral level to view its associated organ systems and potential health correlations. Select vertebrae with subluxations, restrictions, or pathology to identify systemic connections and generate targeted recommendations.</p>
+            
+            <div class="spine-container">
+                <div class="spine-grid">
+                    <div class="spine-section-label">CERVICAL</div>
+                    <div class="vertebra" data-vert="C1" onclick="selectVert('C1')">C1</div>
+                    <div class="vertebra" data-vert="C2" onclick="selectVert('C2')">C2</div>
+                    <div class="vertebra" data-vert="C3" onclick="selectVert('C3')">C3</div>
+                    <div class="vertebra" data-vert="C4" onclick="selectVert('C4')">C4</div>
+                    <div class="vertebra" data-vert="C5" onclick="selectVert('C5')">C5</div>
+                    <div class="vertebra" data-vert="C6" onclick="selectVert('C6')">C6</div>
+                    <div class="vertebra" data-vert="C7" onclick="selectVert('C7')">C7</div>
+                    
+                    <div class="spine-section-label">THORACIC</div>
+                    <div class="vertebra" data-vert="T1" onclick="selectVert('T1')">T1</div>
+                    <div class="vertebra" data-vert="T2" onclick="selectVert('T2')">T2</div>
+                    <div class="vertebra" data-vert="T3" onclick="selectVert('T3')">T3</div>
+                    <div class="vertebra" data-vert="T4" onclick="selectVert('T4')">T4</div>
+                    <div class="vertebra" data-vert="T5" onclick="selectVert('T5')">T5</div>
+                    <div class="vertebra" data-vert="T6" onclick="selectVert('T6')">T6</div>
+                    <div class="vertebra" data-vert="T7" onclick="selectVert('T7')">T7</div>
+                    <div class="vertebra" data-vert="T8" onclick="selectVert('T8')">T8</div>
+                    <div class="vertebra" data-vert="T9" onclick="selectVert('T9')">T9</div>
+                    <div class="vertebra" data-vert="T10" onclick="selectVert('T10')">T10</div>
+                    <div class="vertebra" data-vert="T11" onclick="selectVert('T11')">T11</div>
+                    <div class="vertebra" data-vert="T12" onclick="selectVert('T12')">T12</div>
+                    
+                    <div class="spine-section-label">LUMBAR</div>
+                    <div class="vertebra" data-vert="L1" onclick="selectVert('L1')">L1</div>
+                    <div class="vertebra" data-vert="L2" onclick="selectVert('L2')">L2</div>
+                    <div class="vertebra" data-vert="L3" onclick="selectVert('L3')">L3</div>
+                    <div class="vertebra" data-vert="L4" onclick="selectVert('L4')">L4</div>
+                    <div class="vertebra" data-vert="L5" onclick="selectVert('L5')">L5</div>
+                    
+                    <div class="spine-section-label">SACRAL</div>
+                    <div class="vertebra" data-vert="Sacrum" onclick="selectVert('Sacrum')">Sacrum</div>
+                    <div class="vertebra" data-vert="Coccyx" onclick="selectVert('Coccyx')">Coccyx</div>
+                </div>
+            </div>
+            
+            <div id="subluxation-info">
+                <h4>Selected Vertebra Information</h4>
+                <p id="vert-info"></p>
+                <p id="vert-organs"></p>
+                <p id="vert-symptoms"></p>
+            </div>
+            
+            <div class="input-group">
+                <label>Additional Subluxation Notes:</label>
+                <textarea id="subluxation-notes" placeholder="Document specific findings, motion palpation results, or X-ray findings"></textarea>
+            </div>
+        </div>
+
+        <!-- Risk Assessment Section -->
+        <div class="section">
+            <h2>📊 Musculoskeletal-Systemic Risk Assessment</h2>
+            <p>Risk scores are automatically calculated based on musculoskeletal findings and their evidence-based connections to systemic health.</p>
+            
+            <div class="risk-grid">
+                <div class="risk-card">
+                    <h4>Cardiovascular Risk</h4>
+                    <div class="risk-score" id="cv-risk">0</div>
+                    <p style="font-size: 12px; margin-top: 5px;">Based on thoracic spine involvement</p>
+                </div>
+                
+                <div class="risk-card">
+                    <h4>Metabolic/Diabetes Risk</h4>
+                    <div class="risk-score" id="diabetes-risk">0</div>
+                    <p style="font-size: 12px; margin-top: 5px;">T7, lumbar correlations</p>
+                </div>
+                
+                <div class="risk-card">
+                    <h4>Inflammatory Burden</h4>
+                    <div class="risk-score" id="inflammatory-score">0</div>
+                    <p style="font-size: 12px; margin-top: 5px;">Overall spinal involvement</p>
+                </div>
+                
+                <div class="risk-card">
+                    <h4>Nutritional Deficiency Risk</h4>
+                    <div class="risk-score" id="nutritional-risk">0</div>
+                    <p style="font-size: 12px; margin-top: 5px;">Joint & bone health indicators</p>
+                </div>
+                
+                <div class="risk-card">
+                    <h4>Stress/Adrenal Dysfunction</h4>
+                    <div class="risk-score" id="stress-risk">0</div>
+                    <p style="font-size: 12px; margin-top: 5px;">T9, upper cervical involvement</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommended Labs Section -->
+        <div class="section">
+            <h2>🔬 Recommended Functional Laboratory Testing</h2>
+            <div class="info-box">
+                <strong>Scope Note:</strong> These laboratory tests are recommended to screen for systemic conditions that may affect musculoskeletal health or are indicated by examination findings. Results should be shared with the patient's physician for medical interpretation and treatment.
+            </div>
+            
+            <div class="lab-list" id="lab-recommendations">
+                <!-- Labs will be dynamically generated based on selected vertebrae -->
+                <div class="lab-item">
+                    <input type="checkbox" id="lab-baseline" class="lab-checkbox" value="Baseline Inflammatory Panel (CRP hs-CRP, ESR, CBC)">
+                    <div>
+                        <h4>Baseline Inflammatory Panel</h4>
+                        <p><strong>Tests:</strong> CRP (hs-CRP), ESR, CBC</p>
+                        <p><strong>Purpose:</strong> Assess systemic inflammation</p>
+                    </div>
+                </div>
+                
+                <div class="lab-item">
+                    <input type="checkbox" id="lab-vitd" class="lab-checkbox" value="Vitamin D (25-OH)">
+                    <div>
+                        <h4>Vitamin D (25-OH)</h4>
+                        <p><strong>Purpose:</strong> Bone health, immune function, inflammation modulation</p>
+                        <p><strong>Target:</strong> 50-80 ng/mL optimal</p>
+                    </div>
+                </div>
+                
+                <div class="lab-item">
+                    <input type="checkbox" id="lab-cmp" class="lab-checkbox" value="Comprehensive Metabolic Panel">
+                    <div>
+                        <h4>Comprehensive Metabolic Panel</h4>
+                        <p><strong>Purpose:</strong> Kidney function, electrolytes, glucose metabolism</p>
+                    </div>
+                </div>
+                
+                <div class="lab-item">
+                    <input type="checkbox" id="lab-thyroid" class="lab-checkbox" value="Thyroid Panel (TSH, Free T3, Free T4)">
+                    <div>
+                        <h4>Thyroid Panel (TSH, Free T3, Free T4)</h4>
+                        <p><strong>Purpose:</strong> Metabolic function, muscle health</p>
+                    </div>
+                </div>
+                
+                <div class="lab-item">
+                    <input type="checkbox" id="lab-mag" class="lab-checkbox" value="Magnesium (RBC)">
+                    <div>
+                        <h4>Magnesium (RBC)</h4>
+                        <p><strong>Purpose:</strong> Muscle function, nerve transmission, bone health</p>
+                    </div>
+                </div>
+                
+                <div class="lab-item">
+                    <input type="checkbox" id="lab-omega3" class="lab-checkbox" value="Omega-3 Index">
+                    <div>
+                        <h4>Omega-3 Index</h4>
+                        <p><strong>Purpose:</strong> Anti-inflammatory status</p>
+                        <p><strong>Target:</strong> >8% optimal</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="additional-labs" style="margin-top: 20px;"></div>
+        </div>
+
+        <!-- Supplement Protocol Section -->
+        <div class="section">
+            <h2>💊 Supplement Protocol for Musculoskeletal Support</h2>
+            <div class="info-box">
+                <strong>Legal Disclaimer:</strong> All supplement recommendations are for musculoskeletal support only. These recommendations are based on examination findings and nutritional factors affecting musculoskeletal health. Not intended to diagnose, treat, cure, or prevent any disease.
+            </div>
+            
+            <h3>Core Foundation Protocol</h3>
+            <div class="supplement-grid">
+                <div class="supplement-card">
+                    <input type="checkbox" class="supplement-checkbox" value="Joint Structure & Cartilage Support">
+                    <h4>🦴 Joint Structure & Cartilage Support</h4>
+                    <p style="color: #9c27b0; font-weight: bold; margin-bottom: 10px;">💊 Primary Products: Designs for Health Glucosamine/Chondroitin, Professional Health Products Collagen Complex, Physica Inflamma LF</p>
+                    <ul>
+                        <li><strong>Designs for Health Glucosamine/Chondroitin:</strong> Follow label dosing for 1,500 mg glucosamine + 1,200 mg chondroitin daily (supports cartilage matrix synthesis and maintains joint fluid viscosity)</li>
+                        <li><strong>Professional Health Products Collagen Complex:</strong> 3 capsules daily (provides collagen peptides + 110 mg hyaluronic acid for joint lubrication and structural support)</li>
+                        <li><strong>Physica Inflamma LF:</strong> 3 caps qid between meals (provides MSM, Boswellia, and proteolytic enzymes for connective tissue and joint inflammation)</li>
+                        <li><strong>Topical: Physica BioCatalase Plus Lotion</strong> - Apply to affected joints, ligaments, and muscles as needed</li>
+                    </ul>
+                </div>
+                
+                <div class="supplement-card">
+                    <input type="checkbox" class="supplement-checkbox" value="Anti-Inflammatory Support">
+                    <h4>🔥 Anti-Inflammatory Support</h4>
+                    <p style="color: #9c27b0; font-weight: bold; margin-bottom: 10px;">💊 Physica Products: Inflamma LF, Bio-Omega 3, Bio-A Curcumin PhytoNanosome</p>
+                    <ul>
+                        <li><strong>Physica Bio-A Curcumin PhytoNanosome:</strong> 1 cap with breakfast & lunch, 1-2 caps with dinner (provides highly bioavailable curcumin 500-1,000 mg equivalent daily)</li>
+                        <li><strong>Physica Bio-Omega 3:</strong> 2 caps with breakfast, 1 cap with dinner (provides ~2,400-3,000 mg EPA+DHA daily for anti-inflammatory support)</li>
+                        <li><strong>Physica Inflamma LF:</strong> 3 caps qid between meals (provides Boswellia serrata 300-500 mg equivalent, plus Serrapeptase and other proteolytic enzymes)</li>
+                        <li><strong>Neurobiologix PEA (Palmitoylethanolamide):</strong> Follow label directions (typically 400-600 mg 2x daily for pain and inflammation modulation)</li>
+                    </ul>
+                </div>
+                
+                <div class="supplement-card">
+                    <input type="checkbox" class="supplement-checkbox" value="Bone Health & Mineral Support">
+                    <h4>🦴 Bone Health & Mineral Support</h4>
+                    <p style="color: #9c27b0; font-weight: bold; margin-bottom: 10px;">💊 Physica Products: Phyto Cal-Mag + Boron, Solray-D3 + K2 Liposome Spray, Magnesium BisGlycinate</p>
+                    <ul>
+                        <li><strong>Physica Solray-D3 + K2 Liposome Spray:</strong> 10 sprays daily (provides 5,000 IU D3 + 200 mcg K2 MK-7; adjust to 15-20 sprays for 7,500-10,000 IU D3 based on lab results)</li>
+                        <li><strong>Physica Phyto Cal-Mag + Boron:</strong> 1 cap with breakfast, 3 caps before bed (provides 450 mg calcium citrate, 90 mg magnesium, 5 mg boron daily from 4 caps total)</li>
+                        <li><strong>Physica Magnesium BisGlycinate + L-Taurine:</strong> 1 cap before breakfast, 10am, 4pm, 2 caps before bed (provides 400-500 mg magnesium glycinate daily for bone and muscle support)</li>
+                    </ul>
+                </div>
+                
+                <div class="supplement-card">
+                    <input type="checkbox" class="supplement-checkbox" value="Connective Tissue & Repair">
+                    <h4>⚡ Connective Tissue & Repair</h4>
+                    <p style="color: #9c27b0; font-weight: bold; margin-bottom: 10px;">💊 Physica Products: BioHealth Matrix, Camu Camu Vitamin C Liposome, Collagen Peptides LF, Zinc-Oro Liposome</p>
+                    <ul>
+                        <li><strong>Physica Camu Camu Vitamin C Liposome Powder:</strong> 1 tsp 10 mins before breakfast, lunch & dinner (provides ~2,000-3,000 mg buffered vitamin C daily for collagen synthesis)</li>
+                        <li><strong>Professional Health Products Collagen Complex:</strong> 3 capsules daily (provides comprehensive collagen peptides for connective tissue repair)</li>
+                        <li><strong>Physica Zinc-Oro Liposome Composite:</strong> Follow label directions (typically 15-30 mg zinc daily for tissue repair and immune function)</li>
+                        <li><strong>Physica BioHealth Matrix:</strong> 2 caps qid (provides copper 0.15mg, proline, lysine, alpha lipoic acid 100mg, and full spectrum minerals per 3 caps)</li>
+                    </ul>
+                </div>
+                
+                <div class="supplement-card">
+                    <input type="checkbox" class="supplement-checkbox" value="Muscle Support & Recovery">
+                    <h4>💪 Muscle Support & Recovery</h4>
+                    <p style="color: #9c27b0; font-weight: bold; margin-bottom: 10px;">💊 Physica Products: Magnesium BisGlycinate + L-Taurine, BioHealth Matrix, CoQ10 Liposome</p>
+                    <ul>
+                        <li><strong>Physica Magnesium BisGlycinate + L-Taurine:</strong> 1 cap before breakfast, 10am, 4pm, 2 caps before bed (provides 400-500 mg magnesium glycinate + 1,000-1,500 mg taurine daily for muscle relaxation and recovery)</li>
+                        <li><strong>Physica BioHealth Matrix:</strong> 2 caps qid (provides B-complex in active forms plus supporting nutrients)</li>
+                        <li><strong>Physica CoQ10 Liposome Tincture:</strong> 60 drops tid (provides ~100-200 mg ubiquinol equivalent daily for cellular energy and muscle support)</li>
+                        <li><strong>Physica Acetyl L-Carnitine:</strong> 1-2 caps with breakfast & lunch, 1 cap at 4pm (provides 1,000-2,000 mg L-carnitine daily for muscle energy metabolism)</li>
+                    </ul>
+                </div>
+                
+                <div class="supplement-card">
+                    <input type="checkbox" class="supplement-checkbox" value="Nerve Support & Pain Management">
+                    <h4>🧠 Nerve Support & Pain Management</h4>
+                    <p style="color: #9c27b0; font-weight: bold; margin-bottom: 10px;">💊 Physica Products: Methyl-B12 Liposome Spray, BioHealth Matrix, NAC Forte, Glutathione Liposome</p>
+                    <ul>
+                        <li><strong>Physica Methyl-B12 Liposome Spray:</strong> 2 sprays with breakfast, 1 spray with lunch & before bed (provides ~2,000-5,000 mcg methylcobalamin daily for nerve health)</li>
+                        <li><strong>Physica BioHealth Matrix:</strong> 2 caps qid (provides 100 mg alpha lipoic acid per 3 caps for nerve regeneration, plus P5P and other B vitamins)</li>
+                        <li><strong>Physica Acetyl L-Carnitine:</strong> 1-2 caps with breakfast & lunch, 1 cap at 4pm (provides 500-1,000 mg 2x daily for nerve support)</li>
+                        <li><strong>Physica NAC Forte:</strong> 1 cap with breakfast & lunch, 2 caps with dinner (provides 600-1,200 mg NAC daily for antioxidant and cellular protection)</li>
+                        <li><strong>Physica Glutathione (GSH) Liposome:</strong> 1-2 tsp tid (provides glutathione for cellular protection and detoxification)</li>
+                        <li><strong>Neurobiologix PEA (Palmitoylethanolamide):</strong> Follow label directions (400-600 mg 2x daily for nerve pain and inflammation)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 30px;">Additional Targeted Protocols</h3>
+            <div class="supplement-grid">
+                <div class="supplement-card">
+                    <input type="checkbox" class="supplement-checkbox" value="Osteoarthritis/Degeneration Protocol">
+                    <h4>🌿 Osteoarthritis / Degeneration Protocol</h4>
+                    <p style="color: #9c27b0; font-weight: bold; margin-bottom: 10px;">💊 Primary Products: Designs for Health SAMe, Physica Inflamma LF, Bio-A Curcumin PhytoNanosome, BioCatalase Plus Lotion</p>
+                    <ul>
+                        <li><strong>Designs for Health SAMe:</strong> 400-800 mg daily on empty stomach (supports cartilage regeneration, joint comfort, and mood)</li>
+                        <li><strong>Physica Inflamma LF:</strong> 3 caps qid between meals (Boswellia, Serrapeptase, proteolytic enzymes for joint inflammation)</li>
+                        <li><strong>Physica Bio-A Curcumin PhytoNanosome:</strong> 1 cap breakfast & lunch, 1-2 caps dinner (highly bioavailable curcumin for inflammation)</li>
+                        <li><strong>Physica BioCatalase Plus Lotion:</strong> Apply topically to affected joints 2-3x daily</li>
+                        <li><strong>Professional Health Products Collagen Complex:</strong> 3 caps daily (collagen peptides + hyaluronic acid for joint structure)</li>
+                    </ul>
+                </div>
+                
+                <div class="supplement-card">
+                    <input type="checkbox" class="supplement-checkbox" value="Osteoporosis Prevention">
+                    <h4>🦴 Osteoporosis Prevention</h4>
+                    <p style="color: #9c27b0; font-weight: bold; margin-bottom: 10px;">💊 Physica Products: Solray-D3 + K2, Phyto Cal-Mag + Boron, BioHealth Matrix</p>
+                    <ul>
+                        <li><strong>Physica Solray-D3 + K2 Spray:</strong> 15-20 sprays daily (provides 7,500-10,000 IU D3 + 300-400 mcg K2 MK-7; monitor levels and adjust)</li>
+                        <li><strong>Physica Phyto Cal-Mag + Boron:</strong> 1 cap with breakfast, 3 caps before bed (450 mg calcium citrate + 5 mg boron daily)</li>
+                        <li><strong>Physica BioHealth Matrix:</strong> 2 caps qid (full spectrum minerals including silica and trace minerals for bone matrix)</li>
+                        <li><strong>Weight-bearing exercise</strong> and adequate protein intake essential</li>
+                    </ul>
+                </div>
+                
+                <div class="supplement-card">
+                    <input type="checkbox" class="supplement-checkbox" value="Acute Injury/Post-Surgery">
+                    <h4>⚡ Acute Injury / Post-Surgery</h4>
+                    <p style="color: #9c27b0; font-weight: bold; margin-bottom: 10px;">💊 Physica Products: Inflamma LF, Camu Camu Vitamin C, Zinc-Oro, BioCatalase Plus</p>
+                    <ul>
+                        <li><strong>Physica Inflamma LF:</strong> 4 caps qid between meals for first 2 weeks (high-dose proteolytic enzymes for acute inflammation and tissue repair)</li>
+                        <li><strong>Physica Camu Camu Vitamin C Liposome:</strong> 1 tsp 10 mins before breakfast, lunch & dinner (2,000-3,000 mg daily for collagen synthesis)</li>
+                        <li><strong>Physica Zinc-Oro Liposome Composite:</strong> Increase to 30-50 mg daily short-term for wound healing (reduce to 15-30 mg maintenance)</li>
+                        <li><strong>Professional Health Products Collagen Complex:</strong> Increase to 6 caps daily (double dose for accelerated tissue repair)</li>
+                        <li><strong>Physica BioCatalase Plus Lotion:</strong> Apply topically to injured area 3-4x daily</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="input-group" style="margin-top: 30px;">
+                <label>Custom Supplement Recommendations:</label>
+                <textarea id="custom-supplements" placeholder="Add any additional supplement recommendations specific to this patient"></textarea>
+            </div>
+        </div>
+
+        <!-- Report Generation -->
+        <div class="section">
+            <h2>📄 Comprehensive Assessment Report</h2>
+            <p>Complete all assessment sections above, then generate a comprehensive report for your records and patient education.</p>
+            <button onclick="generateReport()">Generate Complete Report</button>
+            <button class="print-button" onclick="printReport()">Print Report</button>
+        </div>
+        
+        <div id="report-output" class="report-section"></div>
+    </div>
+
+    <script>
+        // Comprehensive Vertebral-Organ Correlations (Meric Chart)
+        const vertCorrelations = {
+            'C1': { 
+                organs: 'Brain, Pituitary Gland, Scalp, Inner & Middle Ear, Sympathetic Nervous System',
+                connection: 'Neurological/Endocrine',
+                symptoms: 'Headaches, migraines, nervousness, insomnia, head colds, hypertension, amnesia, chronic fatigue, dizziness, vertigo',
+                labs: ['Comprehensive Hormone Panel', 'Cortisol (AM/PM)', 'DHEA']
+            },
+            'C2': { 
+                organs: 'Eyes, Optic Nerves, Auditory Nerves, Sinuses, Mastoid Bones, Tongue, Forehead',
+                connection: 'Sensory/Sinus',
+                symptoms: 'Sinus troubles, allergies, crossed eyes, deafness, eye troubles, earaches, fainting spells, certain cases of blindness',
+                labs: ['IgE Panel', 'Comprehensive Allergy Testing']
+            },
+            'C3': { 
+                organs: 'Cheeks, Outer Ear, Face Bones, Teeth, Trigeminal Nerve',
+                connection: 'Facial/Trigeminal',
+                symptoms: 'Neuralgia, neuritis, acne, eczema, trigeminal neuralgia',
+                labs: ['Inflammatory Markers', 'Vitamin D']
+            },
+            'C4': { 
+                organs: 'Nose, Lips, Mouth, Eustachian Tubes',
+                connection: 'Respiratory/ENT',
+                symptoms: 'Hay fever, catarrh, hard of hearing, adenoid problems',
+                labs: ['Thyroid Panel', 'Respiratory Function Tests']
+            },
+            'C5': { 
+                organs: 'Vocal Cords, Neck Glands, Pharynx',
+                connection: 'Throat/Voice',
+                symptoms: 'Laryngitis, hoarseness, throat conditions, chronic cough',
+                labs: ['Thyroid Antibodies', 'Iodine Levels']
+            },
+            'C6': { 
+                organs: 'Neck Muscles, Shoulders, Tonsils',
+                connection: 'Muscular/Upper Extremity',
+                symptoms: 'Stiff neck, pain in upper arms, tonsillitis, whooping cough, croup',
+                labs: ['Magnesium (RBC)', 'Vitamin B6']
+            },
+            'C7': { 
+                organs: 'Thyroid Gland, Shoulders, Elbows',
+                connection: 'Endocrine/Metabolic',
+                symptoms: 'Bursitis, colds, thyroid conditions, hypothyroidism',
+                labs: ['Complete Thyroid Panel (TSH, Free T3, Free T4, Antibodies)', 'Reverse T3']
+            },
+            'T1': { 
+                organs: 'Arms (Elbow to Fingers), Esophagus, Trachea',
+                connection: 'Upper Extremity/Respiratory',
+                symptoms: 'Asthma, cough, difficult breathing, shortness of breath, pain in forearms and hands',
+                labs: ['Pulmonary Function Tests', 'Chest X-ray (if indicated)']
+            },
+            'T2': { 
+                organs: 'Heart (including Valves & Covering)',
+                connection: 'Cardiovascular',
+                symptoms: 'Functional heart conditions, chest pain, cardiovascular concerns',
+                labs: ['Lipid Panel', 'CoQ10 Levels', 'Homocysteine', 'hs-CRP', 'Lipoprotein(a)']
+            },
+            'T3': { 
+                organs: 'Lungs, Bronchial Tubes, Pleura, Chest, Breast',
+                connection: 'Respiratory',
+                symptoms: 'Bronchitis, pleurisy, pneumonia, congestion, influenza',
+                labs: ['Vitamin A', 'Zinc', 'Selenium']
+            },
+            'T4': { 
+                organs: 'Gallbladder, Common Duct',
+                connection: 'Digestive/Hepatobiliary',
+                symptoms: 'Gallbladder conditions, jaundice, shingles',
+                labs: ['Comprehensive Metabolic Panel', 'GGT', 'Alkaline Phosphatase', 'Bilirubin']
+            },
+            'T5': { 
+                organs: 'Liver, Solar Plexus, Blood',
+                connection: 'Detoxification/Circulation',
+                symptoms: 'Liver conditions, fevers, low blood pressure, anemia, poor circulation',
+                labs: ['Liver Function Panel', 'Iron Studies', 'B12', 'Folate', 'Homocysteine']
+            },
+            'T6': { 
+                organs: 'Stomach',
+                connection: 'Digestive/Upper GI',
+                symptoms: 'Stomach troubles, indigestion, dyspepsia, heartburn',
+                labs: ['H. Pylori Testing', 'Pepsinogen Levels', 'Gastrin']
+            },
+            'T7': { 
+                organs: 'Pancreas, Duodenum',
+                connection: 'Metabolic/Endocrine',
+                symptoms: 'Diabetes, ulcers, gastritis, blood sugar dysregulation',
+                labs: ['Fasting Glucose', 'HbA1c', 'Fasting Insulin', 'HOMA-IR', 'C-Peptide']
+            },
+            'T8': { 
+                organs: 'Spleen, Diaphragm',
+                connection: 'Immune/Hematologic',
+                symptoms: 'Lowered resistance, immune dysfunction, hiccups',
+                labs: ['Complete Blood Count', 'Immunoglobulin Panel', 'Vitamin D']
+            },
+            'T9': { 
+                organs: 'Adrenal Glands',
+                connection: 'Stress/Endocrine',
+                symptoms: 'Allergies, hives, adrenal fatigue, stress response issues',
+                labs: ['Cortisol (4-point salivary)', 'DHEA-S', 'Pregnenolone', 'Adrenal Stress Index']
+            },
+            'T10': { 
+                organs: 'Kidneys',
+                connection: 'Urinary/Filtration',
+                symptoms: 'Kidney troubles, nephritis, fatigue, pyelitis',
+                labs: ['Comprehensive Metabolic Panel', 'Urinalysis', 'Cystatin C', 'BUN/Creatinine Ratio']
+            },
+            'T11': { 
+                organs: 'Kidneys, Ureters',
+                connection: 'Urinary',
+                symptoms: 'Skin conditions (acne, eczema), boils, kidney dysfunction',
+                labs: ['Heavy Metal Testing', 'Organic Acids Test']
+            },
+            'T12': { 
+                organs: 'Small Intestines, Lymph Circulation',
+                connection: 'Digestive/Lymphatic',
+                symptoms: 'Rheumatism, gas pains, certain types of sterility, intestinal issues',
+                labs: ['Comprehensive Stool Analysis', 'SIBO Breath Test', 'Zonulin']
+            },
+            'L1': { 
+                organs: 'Large Intestines, Inguinal Rings',
+                connection: 'Digestive/Lower GI',
+                symptoms: 'Constipation, colitis, dysentery, diarrhea, hernias',
+                labs: ['Comprehensive Stool Analysis', 'Calprotectin', 'GI-MAP']
+            },
+            'L2': { 
+                organs: 'Appendix, Abdomen, Upper Leg, Cecum',
+                connection: 'Digestive/Lower Extremity',
+                symptoms: 'Appendicitis, cramps, difficult breathing, acidosis, varicose veins',
+                labs: ['Inflammatory Markers', 'Complete Blood Count']
+            },
+            'L3': { 
+                organs: 'Sex Organs, Uterus, Bladder, Knees',
+                connection: 'Reproductive/Urogenital',
+                symptoms: 'Bladder troubles, menstrual problems, miscarriages, knee pain, impotency',
+                labs: ['Hormone Panel (Estrogen, Progesterone, Testosterone)', 'Urinalysis']
+            },
+            'L4': { 
+                organs: 'Prostate Gland, Lumbar Muscles, Sciatic Nerve',
+                connection: 'Muscular/Neurological',
+                symptoms: 'Sciatica, lumbago, difficult/painful urination, backaches',
+                labs: ['PSA (males)', 'Vitamin B12', 'Methylmalonic Acid']
+            },
+            'L5': { 
+                organs: 'Lower Legs, Ankles, Feet, Toes, Arches',
+                connection: 'Circulatory/Lower Extremity',
+                symptoms: 'Poor circulation in legs, swollen ankles, weak ankles/arches, cold feet, leg cramps',
+                labs: ['Doppler Ultrasound (if indicated)', 'D-Dimer', 'Homocysteine']
+            },
+            'Sacrum': { 
+                organs: 'Hip Bones, Buttocks, Sacroiliac Joint',
+                connection: 'Structural/Pelvic',
+                symptoms: 'Sacroiliac conditions, spinal curvatures, pelvic imbalance',
+                labs: ['X-ray Analysis', 'Inflammatory Markers']
+            },
+            'Coccyx': { 
+                organs: 'Rectum, Anus',
+                connection: 'Digestive/Elimination',
+                symptoms: 'Hemorrhoids, pruritus (itching), pain at end of spine on sitting',
+                labs: ['Comprehensive Stool Analysis']
+            }
+        };
+
+        let selectedVerts = [];
+        let selectedDeviations = [];
+        
+        // Set today's date
+        document.getElementById('assessment-date').valueAsDate = new Date();
+
+        function selectVert(vertId) {
+            const vertElement = event.target;
+            const isSelected = vertElement.classList.contains('selected');
+            
+            if (isSelected) {
+                vertElement.classList.remove('selected');
+                selectedVerts = selectedVerts.filter(v => v !== vertId);
+            } else {
+                vertElement.classList.add('selected');
+                selectedVerts.push(vertId);
+            }
+            
+            // Show vertebra information
+            const infoDiv = document.getElementById('subluxation-info');
+            const infoText = document.getElementById('vert-info');
+            const organsText = document.getElementById('vert-organs');
+            const symptomsText = document.getElementById('vert-symptoms');
+            
+            if (selectedVerts.length > 0) {
+                const lastSelected = selectedVerts[selectedVerts.length - 1];
+                const data = vertCorrelations[lastSelected];
+                
+                infoText.innerHTML = `<strong>Vertebral Level ${lastSelected}:</strong> ${data.connection}`;
+                organsText.innerHTML = `<strong>Associated Organs/Systems:</strong> ${data.organs}`;
+                symptomsText.innerHTML = `<strong>Potential Symptoms/Conditions:</strong> ${data.symptoms}`;
+                infoDiv.style.display = 'block';
+            } else {
+                infoDiv.style.display = 'none';
+            }
+            
+            // Update risk scores and lab recommendations
+            calculateRiskScores();
+            updateLabRecommendations();
+        }
+
+        function calculateRiskScores() {
+            // Cardiovascular Risk (T2, upper thoracic, cervical involvement)
+            let cvScore = selectedVerts.filter(v => 
+                v === 'T2' || v === 'T3' || v.startsWith('C')
+            ).length * 2;
+            
+            // Diabetes/Metabolic Risk (T7, lumbar, sacral)
+            let diabetesScore = selectedVerts.filter(v => 
+                v === 'T7' || v.startsWith('L')
+            ).length * 3;
+            
+            // Inflammatory Burden (total vertebral involvement)
+            let inflammatoryScore = selectedVerts.length * 1.5;
+            
+            // Nutritional Deficiency Risk
+            let nutritionalScore = Math.min(selectedVerts.length * 2, 15);
+            
+            // Stress/Adrenal Risk (T9, upper cervical)
+            let stressScore = selectedVerts.filter(v => 
+                v === 'T9' || v === 'C1' || v === 'C2'
+            ).length * 4;
+            
+            document.getElementById('cv-risk').textContent = cvScore;
+            document.getElementById('diabetes-risk').textContent = diabetesScore;
+            document.getElementById('inflammatory-score').textContent = Math.round(inflammatoryScore);
+            document.getElementById('nutritional-risk').textContent = nutritionalScore;
+            document.getElementById('stress-risk').textContent = stressScore;
+        }
+
+        function updateLabRecommendations() {
+            const additionalLabsDiv = document.getElementById('additional-labs');
+            let labsHTML = '<h3>Additional Recommended Labs Based on Vertebral Analysis:</h3><div class="lab-list">';
+            
+            const recommendedLabs = new Set();
+            
+            selectedVerts.forEach(vert => {
+                const data = vertCorrelations[vert];
+                if (data && data.labs) {
+                    data.labs.forEach(lab => recommendedLabs.add(lab));
+                }
+            });
+            
+            if (recommendedLabs.size > 0) {
+                recommendedLabs.forEach(lab => {
+                    labsHTML += `
+                        <div class="lab-item">
+                            <h4>${lab}</h4>
+                            <p><strong>Indication:</strong> Based on vertebral level involvement</p>
+                        </div>
+                    `;
+                });
+            } else {
+                labsHTML += '<p>Select vertebral levels to see specific lab recommendations.</p>';
+            }
+            
+            labsHTML += '</div>';
+            additionalLabsDiv.innerHTML = labsHTML;
+        }
+        
+        function selectDeviation(button) {
+            const name = button.dataset.name;
+            const isSelected = button.classList.contains('selected');
+            
+            if (isSelected) {
+                button.classList.remove('selected');
+                selectedDeviations = selectedDeviations.filter(d => d !== name);
+            } else {
+                button.classList.add('selected');
+                selectedDeviations.push(name);
+            }
+        }
+
+        function generateReport() {
+            // Gather all data
+            const patientName = document.getElementById('patient-name').value || 'Not Provided';
+            const assessmentDate = document.getElementById('assessment-date').value || 'Not Provided';
+            const patientAge = document.getElementById('patient-age').value || 'Not Provided';
+            const medicalHistory = document.getElementById('medical-history').value || 'Not documented';
+            const medications = document.getElementById('medications').value || 'None listed';
+            const chiefComplaint = document.getElementById('chief-complaint').value || 'Not documented';
+            
+            const postureNotes = document.getElementById('posture-notes').value || 'None';
+            const romFindings = document.getElementById('rom-findings').value || 'Not documented';
+            const palpationFindings = document.getElementById('palpation-findings').value || 'Not documented';
+            const neuroFindings = document.getElementById('neuro-findings').value || 'Not documented';
+            const functionalFindings = document.getElementById('functional-findings').value || 'Not documented';
+            const subluxationNotes = document.getElementById('subluxation-notes').value || 'None';
+            const customSupplements = document.getElementById('custom-supplements').value || 'None';
+            const movewellNotes = document.getElementById('movewell-notes').value || 'None';
+            
+            // Helper function to get radio button value
+            function getRadioValue(name) {
+                const radio = document.querySelector(`input[name="${name}"]:checked`);
+                return radio ? radio.value : 'Not Tested';
+            }
+            
+            // Get F.I.T. Foundation Test Results
+            const fitFoundationTests = [
+                { name: 'Testability & Switching', result: getRadioValue('testability') },
+                { name: 'Bilateral Scales', result: getRadioValue('bilateral'), 
+                  details: `Right: ${document.getElementById('right-scale').value || 'N/A'} lbs, Left: ${document.getElementById('left-scale').value || 'N/A'} lbs` },
+                { name: 'Standing Stress Test', result: getRadioValue('standing-stress') },
+                { name: 'Brain-Cortex', result: getRadioValue('brain-cortex') },
+                { name: 'Cerebellum', result: getRadioValue('cerebellum') }
+            ];
+            
+            // Get F.I.T. Functional Capacity Test Results
+            const fitFunctionalTests = [
+                { name: 'JAMAR Grip Test', result: getRadioValue('jamar'),
+                  details: `Right: ${document.getElementById('jamar-right').value || 'N/A'} lbs, Left: ${document.getElementById('jamar-left').value || 'N/A'} lbs` },
+                { name: 'Captains of Crush Grip Strength', result: getRadioValue('coc'),
+                  details: `Level: ${document.getElementById('coc-level').value || 'N/A'}, Reps: ${document.getElementById('coc-reps').value || 'N/A'}` },
+                { name: 'Band Extensions', result: getRadioValue('band-ext') },
+                { name: 'Front Raise', result: getRadioValue('front-raise') },
+                { name: 'Slant Board', result: getRadioValue('slant-board') },
+                { name: 'SlackBlock', result: getRadioValue('slackblock') },
+                { name: 'Calf Master', result: getRadioValue('calf-master') },
+                { name: 'CoreStretch', result: getRadioValue('corestretch') },
+                { name: 'Quadricep Stretch', result: getRadioValue('quad-stretch') },
+                { name: 'Side Lying Clams', result: getRadioValue('clams') },
+                { name: 'Bird Dog', result: getRadioValue('bird-dog') }
+            ];
+            
+            // Get MoveWell3 Level 1 Test Results
+            const movewellTests = [
+                { category: 'Cervical', tests: [
+                    { name: 'Cervical Rotation', result: getRadioValue('cerv-rot') },
+                    { name: 'Cervical Flexion', result: getRadioValue('cerv-flex') },
+                    { name: 'Cervical Extension', result: getRadioValue('cerv-ext') }
+                ]},
+                { category: 'Thoracic', tests: [
+                    { name: 'Lumbar Locked Thoracic Rotation', result: getRadioValue('thor-rot') },
+                    { name: 'Overhead Reach', result: getRadioValue('overhead') }
+                ]},
+                { category: 'Shoulder', tests: [
+                    { name: 'Shoulder Touch (R Top/L Bottom)', result: getRadioValue('shoulder-rl') },
+                    { name: 'Shoulder Touch (L Top/R Bottom)', result: getRadioValue('shoulder-lr') }
+                ]},
+                { category: 'Squat', tests: [
+                    { name: 'Overhead Deep Squat', result: getRadioValue('squat') }
+                ]},
+                { category: 'Hip & Lower Extremity', tests: [
+                    { name: 'Straight Leg Raise', result: getRadioValue('slr') },
+                    { name: 'Glute Bridge', result: getRadioValue('glute-bridge') },
+                    { name: 'FABER Test', result: getRadioValue('faber') },
+                    { name: 'Thomas Test', result: getRadioValue('thomas') }
+                ]},
+                { category: 'Trunk', tests: [
+                    { name: 'Toe Touch', result: getRadioValue('toe-touch') },
+                    { name: 'Overhead Extension', result: getRadioValue('overhead-ext') }
+                ]}
+            ];
+            
+            // Count F.I.T. Foundation passes
+            const foundationPasses = fitFoundationTests.filter(t => t.result === 'pass').length;
+            const foundationStatus = foundationPasses >= 4 ? 
+                `<span style="color: #4caf50; font-weight: bold;">PASS (${foundationPasses}/5) ✓</span>` : 
+                `<span style="color: #f44336; font-weight: bold;">FAIL (${foundationPasses}/5) - Must pass 4/5 before movement testing</span>`;
+            
+            // Build F.I.T. Foundation Results
+            let fitFoundationHTML = '<h3>F.I.T. Foundation Assessment</h3>';
+            fitFoundationHTML += `<p><strong>Overall Foundation Status:</strong> ${foundationStatus}</p>`;
+            fitFoundationHTML += '<table style="width: 100%; border-collapse: collapse; margin-top: 15px;">';
+            fitFoundationHTML += '<tr style="background: #f5f5f5;"><th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Test</th><th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Result</th><th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Details</th></tr>';
+            
+            fitFoundationTests.forEach(test => {
+                const resultStyle = test.result === 'pass' ? 'color: #4caf50; font-weight: bold;' : 
+                                   test.result === 'fail' ? 'color: #f44336; font-weight: bold;' : 
+                                   'color: #999;';
+                const resultText = test.result === 'pass' ? 'PASS ✓' : 
+                                  test.result === 'fail' ? 'FAIL ✗' : 
+                                  'Not Tested';
+                fitFoundationHTML += `<tr>
+                    <td style="padding: 10px; border: 1px solid #ddd;">${test.name}</td>
+                    <td style="padding: 10px; border: 1px solid #ddd; text-align: center; ${resultStyle}">${resultText}</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">${test.details || '-'}</td>
+                </tr>`;
+            });
+            fitFoundationHTML += '</table>';
+            
+            // Build F.I.T. Functional Results
+            let fitFunctionalHTML = '<h3 style="margin-top: 30px;">F.I.T. Functional Capacity Tests</h3>';
+            fitFunctionalHTML += '<table style="width: 100%; border-collapse: collapse; margin-top: 15px;">';
+            fitFunctionalHTML += '<tr style="background: #f5f5f5;"><th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Test</th><th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Result</th><th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Details</th></tr>';
+            
+            fitFunctionalTests.forEach(test => {
+                const resultStyle = test.result === 'pass' ? 'color: #4caf50; font-weight: bold;' : 
+                                   test.result === 'fail' ? 'color: #f44336; font-weight: bold;' : 
+                                   'color: #999;';
+                const resultText = test.result === 'pass' ? 'PASS ✓' : 
+                                  test.result === 'fail' ? 'FAIL ✗' : 
+                                  'Not Tested';
+                fitFunctionalHTML += `<tr>
+                    <td style="padding: 10px; border: 1px solid #ddd;">${test.name}</td>
+                    <td style="padding: 10px; border: 1px solid #ddd; text-align: center; ${resultStyle}">${resultText}</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">${test.details || '-'}</td>
+                </tr>`;
+            });
+            fitFunctionalHTML += '</table>';
+            
+            // Build MoveWell3 Results
+            let movewellHTML = '<h3 style="margin-top: 30px;">MoveWell3 Level 1 Movement Screen</h3>';
+            
+            movewellTests.forEach(category => {
+                movewellHTML += `<h4 style="color: #673ab7; margin-top: 20px;">${category.category} Assessment</h4>`;
+                movewellHTML += '<table style="width: 100%; border-collapse: collapse; margin-top: 10px;">';
+                movewellHTML += '<tr style="background: #f5f5f5;"><th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Test</th><th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Result</th><th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Action</th></tr>';
+                
+                category.tests.forEach(test => {
+                    const resultStyle = test.result === 'pass' ? 'color: #4caf50; font-weight: bold;' : 
+                                       test.result === 'fail' ? 'color: #f44336; font-weight: bold;' : 
+                                       'color: #999;';
+                    const resultText = test.result === 'pass' ? 'PASS ✓' : 
+                                      test.result === 'fail' ? 'FAIL ✗' : 
+                                      'Not Tested';
+                    const action = test.result === 'fail' ? 'Proceed to Level 2 detailed assessment' : '-';
+                    
+                    movewellHTML += `<tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;">${test.name}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center; ${resultStyle}">${resultText}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd; ${test.result === 'fail' ? 'font-weight: bold; color: #f44336;' : ''}">${action}</td>
+                    </tr>`;
+                });
+                
+                movewellHTML += '</table>';
+            });
+            
+            movewellHTML += `<p style="margin-top: 15px;"><strong>Additional Notes:</strong> ${movewellNotes}</p>`;
+            
+            // Get selected labs
+            const selectedLabs = [];
+            document.querySelectorAll('.lab-checkbox:checked').forEach(cb => {
+                selectedLabs.push(cb.value);
+            });
+            
+            // Get selected supplements
+            const selectedSupplements = [];
+            document.querySelectorAll('.supplement-checkbox:checked').forEach(cb => {
+                selectedSupplements.push(cb.value);
+            });
+            
+            // Build postural deviations section with exercises
+            let deviationsSection = '';
+            if (selectedDeviations.length > 0) {
+                deviationsSection = '<h3>Postural Deviations and TheraCiser/BACKSYS Corrective Exercise Protocol</h3>';
+                deviationsSection += '<div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin-bottom: 20px; border-radius: 5px;">';
+                deviationsSection += '<p style="margin: 0 0 10px 0; font-weight: bold;">Standard BACKSYS Repetition Protocol:</p>';
+                deviationsSection += '<ol style="margin: 0; padding-left: 20px;">';
+                deviationsSection += '<li>Start: 3 sets of 6 reps at a slow pace</li>';
+                deviationsSection += '<li>Increase Resistance: 3 times maximum</li>';
+                deviationsSection += '<li>Progress to: 3 sets of 10 reps at a slow pace</li>';
+                deviationsSection += '<li>Final Stage: 3 sets of 15 reps at a slow pace</li>';
+                deviationsSection += '</ol></div>';
+                
+                selectedDeviations.forEach(dev => {
+                    const button = document.querySelector(`button[data-name="${dev}"]`);
+                    const description = button.dataset.description;
+                    deviationsSection += `
+                        <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-left: 4px solid #4caf50; border-radius: 5px;">
+                            <p style="margin: 0 0 10px 0; font-weight: bold; font-size: 16px;">${dev}</p>
+                            <p style="margin: 0;"><strong>Exercise Instructions:</strong> ${description}</p>
+                        </div>
+                    `;
+                });
+            } else {
+                deviationsSection = '<h3>Postural Deviations</h3><p>No postural deviations selected.</p>';
+            }
+            
+            // Build vertebral analysis section
+            let vertebralAnalysis = '';
+            if (selectedVerts.length > 0) {
+                vertebralAnalysis = '<h3>Vertebral Subluxation Analysis</h3>';
+                vertebralAnalysis += `<p><strong>Selected Vertebral Levels:</strong> ${selectedVerts.join(', ')}</p>`;
+                vertebralAnalysis += '<div style="margin-left: 20px;">';
+                selectedVerts.forEach(vert => {
+                    const data = vertCorrelations[vert];
+                    vertebralAnalysis += `
+                        <p><strong>${vert}:</strong><br>
+                        <em>Organs/Systems:</em> ${data.organs}<br>
+                        <em>Connection:</em> ${data.connection}<br>
+                        <em>Associated Symptoms:</em> ${data.symptoms}</p>
+                    `;
+                });
+                vertebralAnalysis += '</div>';
+            } else {
+                vertebralAnalysis = '<h3>Vertebral Subluxation Analysis</h3><p>No vertebral levels selected.</p>';
+            }
+            
+            // Generate full report
+            const reportHTML = `
+                <h1 style="text-align: center; color: #2c3e50;">Comprehensive Musculoskeletal Assessment Report</h1>
+                <hr>
+                
+                <h2>Patient Information</h2>
+                <p><strong>Name:</strong> ${patientName}</p>
+                <p><strong>Date of Assessment:</strong> ${assessmentDate}</p>
+                <p><strong>Age:</strong> ${patientAge}</p>
+                
+                <h2>Chief Complaint</h2>
+                <p>${chiefComplaint}</p>
+                
+                <h2>Medical History</h2>
+                <p>${medicalHistory}</p>
+                
+                <h2>Current Medications</h2>
+                <p>${medications}</p>
+                
+                <h2>Examination Findings</h2>
+                
+                ${deviationsSection}
+                
+                <p><strong>Additional Postural Notes:</strong> ${postureNotes}</p>
+                
+                <h3>Range of Motion & Strength Testing</h3>
+                <p>${romFindings}</p>
+                
+                <h3>Palpation & Joint Mobility</h3>
+                <p>${palpationFindings}</p>
+                
+                <h3>Neurological Screening</h3>
+                <p>${neuroFindings}</p>
+                
+                <h3>Functional Movement Analysis</h3>
+                <p>${functionalFindings}</p>
+                
+                <hr style="margin: 40px 0;">
+                
+                <h2>F.I.T. (Fitness Integration Technique) Assessment Results</h2>
+                
+                ${fitFoundationHTML}
+                
+                ${fitFunctionalHTML}
+                
+                <hr style="margin: 40px 0;">
+                
+                <h2>MoveWell3 Movement Screen Results</h2>
+                
+                ${movewellHTML}
+                
+                <hr style="margin: 40px 0;">
+                
+                ${vertebralAnalysis}
+                
+                <p><strong>Additional Subluxation Notes:</strong> ${subluxationNotes}</p>
+                
+                <h2>Risk Assessment Scores</h2>
+                <p><strong>Cardiovascular Risk:</strong> ${document.getElementById('cv-risk').textContent}</p>
+                <p><strong>Metabolic/Diabetes Risk:</strong> ${document.getElementById('diabetes-risk').textContent}</p>
+                <p><strong>Inflammatory Burden:</strong> ${document.getElementById('inflammatory-score').textContent}</p>
+                <p><strong>Nutritional Deficiency Risk:</strong> ${document.getElementById('nutritional-risk').textContent}</p>
+                <p><strong>Stress/Adrenal Dysfunction:</strong> ${document.getElementById('stress-risk').textContent}</p>
+                
+                <h2>Recommended Laboratory Testing</h2>
+                ${selectedLabs.length > 0 ? `
+                    <h3>Selected Laboratory Tests:</h3>
+                    <ul>
+                        ${selectedLabs.map(lab => `<li>${lab}</li>`).join('')}
+                    </ul>
+                ` : '<p>No laboratory tests selected.</p>'}
+                <p><em>See assessment tool for complete lab descriptions and clinical indications.</em></p>
+                
+                <h2>Supplement Protocol Recommendations</h2>
+                ${selectedSupplements.length > 0 ? `
+                    <h3>Selected Supplement Protocols:</h3>
+                    ${selectedSupplements.map(suppName => {
+                        // Get the full supplement card content
+                        const suppCard = Array.from(document.querySelectorAll('.supplement-card')).find(card => 
+                            card.querySelector('.supplement-checkbox')?.value === suppName
+                        );
+                        const suppContent = suppCard ? suppCard.querySelector('ul')?.innerHTML || '' : '';
+                        return `
+                            <div style="margin-bottom: 25px; padding: 20px; background: #f8f9fa; border-left: 4px solid #4caf50; border-radius: 5px;">
+                                <h4 style="margin-top: 0; color: #4caf50;">${suppName}</h4>
+                                <ul style="margin: 10px 0; padding-left: 20px;">
+                                    ${suppContent}
+                                </ul>
+                            </div>
+                        `;
+                    }).join('')}
+                ` : '<p>No supplement protocols selected.</p>'}
+                <p><strong>Custom Recommendations:</strong> ${customSupplements}</p>
+                
+                <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin-top: 20px; border-radius: 5px;">
+                    <p style="margin: 0; font-size: 14px;"><strong>Legal Disclaimer:</strong> All supplement recommendations are for musculoskeletal support only. These recommendations are based on examination findings and nutritional factors affecting musculoskeletal health. Not intended to diagnose, treat, cure, or prevent any disease.</p>
+                </div>
+                
+                <hr>
+                <p style="text-align: center; font-size: 12px; color: #666;">
+                    <em>This assessment is for professional use only. All recommendations support musculoskeletal health outcomes and are not intended to diagnose, treat, cure, or prevent any disease.</em>
+                </p>
+            `;
+            
+            const reportDiv = document.getElementById('report-output');
+            reportDiv.innerHTML = reportHTML;
+            reportDiv.style.display = 'block';
+            
+            // Scroll to report
+            reportDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function printReport() {
+            window.print();
+        }
+    </script>
+</body>
+</html>
