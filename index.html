@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🦴 Musculoskeletal-Systemic Health Integration Platform</title>
+    <title>Musculoskeletal-Systemic Health Integration Platform</title>
     <style>
         * {
             box-sizing: border-box;
@@ -369,12 +369,46 @@
             button {
                 display: none;
             }
+            #logo-display img {
+                max-width: 300px;
+                max-height: 100px;
+                page-break-inside: avoid;
+            }
+            /* Hide logo upload interface when printing */
+            input[type="file"],
+            input[type="text"]#logo-url,
+            button {
+                display: none !important;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🦴 Musculoskeletal-Systemic Health Integration Platform</h1>
+        <!-- Logo and Header Section -->
+        <div style="text-align: center; margin-bottom: 30px; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <div id="logo-display" style="margin-bottom: 15px; min-height: 80px; display: flex; align-items: center; justify-content: center;">
+                <!-- Logo will appear here -->
+            </div>
+            <h1 style="margin: 10px 0; color: #2c3e50;">Musculoskeletal-Systemic Health Integration Platform</h1>
+            <p style="color: #7f8c8d; font-size: 16px; margin: 5px 0;">Integrated F.I.T., MoveWell3, BACKSYS® & NECKSYS® Assessment System</p>
+            
+            <!-- Logo Upload Section -->
+            <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 2px dashed #ddd;">
+                <p style="margin: 0 0 10px 0; font-weight: bold; color: #555; font-size: 14px;">📷 Add Your Practice Logo</p>
+                <div style="display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap;">
+                    <input type="file" id="logo-upload" accept="image/*" style="display: none;" onchange="handleLogoUpload(event)">
+                    <button onclick="document.getElementById('logo-upload').click()" style="padding: 8px 20px; background: #4caf50; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">Upload Logo File</button>
+                    <span style="color: #999;">OR</span>
+                    <input type="text" id="logo-url" placeholder="Paste logo URL here" style="padding: 8px; border: 1px solid #ddd; border-radius: 5px; width: 300px; font-size: 14px;">
+                    <button onclick="handleLogoURL()" style="padding: 8px 20px; background: #2196f3; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">Use URL</button>
+                    <button onclick="removeLogo()" style="padding: 8px 20px; background: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">Remove Logo</button>
+                </div>
+                <p style="margin: 10px 0 0 0; font-size: 12px; color: #777;">💡 Recommended: PNG or JPG, max width 400px, transparent background preferred</p>
+            </div>
+        </div>
+        
+        <h1>Musculoskeletal-Systemic Health Integration Platform</h1>
         
         <div class="warning">
             ⚠️ <strong>Professional Use Only:</strong> This assessment evaluates musculoskeletal findings and their established connections to systemic health. All recommendations support musculoskeletal health outcomes and are not intended to diagnose, treat, cure, or prevent any disease. Supplement recommendations are for musculoskeletal support. For comprehensive medical evaluation, patients should consult with their physician.
@@ -1206,7 +1240,7 @@
             <div class="supplement-grid">
                 <div class="supplement-card">
                     <input type="checkbox" class="supplement-checkbox" value="Joint Structure & Cartilage Support">
-                    <h4>🦴 Joint Structure & Cartilage Support</h4>
+                    <h4>Joint Structure & Cartilage Support</h4>
                     <p style="color: #9c27b0; font-weight: bold; margin-bottom: 10px;">💊 Primary Products: Designs for Health Glucosamine/Chondroitin, Professional Health Products Collagen Complex, Physica Inflamma LF</p>
                     <ul>
                         <li><strong>Designs for Health Glucosamine/Chondroitin:</strong> Follow label dosing for 1,500 mg glucosamine + 1,200 mg chondroitin daily (supports cartilage matrix synthesis and maintains joint fluid viscosity)</li>
@@ -1230,7 +1264,7 @@
                 
                 <div class="supplement-card">
                     <input type="checkbox" class="supplement-checkbox" value="Bone Health & Mineral Support">
-                    <h4>🦴 Bone Health & Mineral Support</h4>
+                    <h4>Bone Health & Mineral Support</h4>
                     <p style="color: #9c27b0; font-weight: bold; margin-bottom: 10px;">💊 Physica Products: Phyto Cal-Mag + Boron, Solray-D3 + K2 Liposome Spray, Magnesium BisGlycinate</p>
                     <ul>
                         <li><strong>Physica Solray-D3 + K2 Liposome Spray:</strong> 10 sprays daily (provides 5,000 IU D3 + 200 mcg K2 MK-7; adjust to 15-20 sprays for 7,500-10,000 IU D3 based on lab results)</li>
@@ -1295,7 +1329,7 @@
                 
                 <div class="supplement-card">
                     <input type="checkbox" class="supplement-checkbox" value="Osteoporosis Prevention">
-                    <h4>🦴 Osteoporosis Prevention</h4>
+                    <h4>Osteoporosis Prevention</h4>
                     <p style="color: #9c27b0; font-weight: bold; margin-bottom: 10px;">💊 Physica Products: Solray-D3 + K2, Phyto Cal-Mag + Boron, BioHealth Matrix</p>
                     <ul>
                         <li><strong>Physica Solray-D3 + K2 Spray:</strong> 15-20 sprays daily (provides 7,500-10,000 IU D3 + 300-400 mcg K2 MK-7; monitor levels and adjust)</li>
@@ -1499,9 +1533,50 @@
 
         let selectedVerts = [];
         let selectedDeviations = [];
+        let logoDataURL = null; // Store logo data
         
         // Set today's date
         document.getElementById('assessment-date').valueAsDate = new Date();
+
+        // Logo handling functions
+        function handleLogoUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                if (file.size > 5000000) { // 5MB limit
+                    alert('File size too large. Please use an image under 5MB.');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    logoDataURL = e.target.result;
+                    displayLogo(logoDataURL);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function handleLogoURL() {
+            const url = document.getElementById('logo-url').value.trim();
+            if (url) {
+                logoDataURL = url;
+                displayLogo(url);
+            } else {
+                alert('Please enter a valid logo URL');
+            }
+        }
+
+        function displayLogo(src) {
+            const logoDisplay = document.getElementById('logo-display');
+            logoDisplay.innerHTML = `<img src="${src}" alt="Practice Logo" style="max-width: 400px; max-height: 120px; height: auto;">`;
+        }
+
+        function removeLogo() {
+            logoDataURL = null;
+            document.getElementById('logo-display').innerHTML = '';
+            document.getElementById('logo-upload').value = '';
+            document.getElementById('logo-url').value = '';
+        }
 
         function selectVert(vertId) {
             const vertElement = event.target;
@@ -1826,8 +1901,18 @@
                 vertebralAnalysis = '<h3>Vertebral Subluxation Analysis</h3><p>No vertebral levels selected.</p>';
             }
             
-            // Generate full report
+            // Generate full report with logo
+            let logoHTML = '';
+            if (logoDataURL) {
+                logoHTML = `
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <img src="${logoDataURL}" alt="Practice Logo" style="max-width: 400px; max-height: 120px; height: auto;">
+                    </div>
+                `;
+            }
+            
             const reportHTML = `
+                ${logoHTML}
                 <h1 style="text-align: center; color: #2c3e50;">Comprehensive Musculoskeletal Assessment Report</h1>
                 <hr>
                 
