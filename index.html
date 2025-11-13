@@ -397,12 +397,12 @@
             <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 2px dashed #ddd;">
                 <p style="margin: 0 0 10px 0; font-weight: bold; color: #555; font-size: 14px;">📷 Add Your Practice Logo</p>
                 <div style="display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap;">
-                    <input type="file" id="logo-upload" accept="image/*" style="display: none;" onchange="handleLogoUpload(event)">
-                    <button onclick="document.getElementById('logo-upload').click()" style="padding: 8px 20px; background: #4caf50; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">Upload Logo File</button>
+                    <input type="file" id="logo-upload" accept="image/*" style="display: none;">
+                    <button type="button" id="upload-btn" style="padding: 8px 20px; background: #4caf50 !important; color: white !important; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">Upload Logo File</button>
                     <span style="color: #999;">OR</span>
                     <input type="text" id="logo-url" placeholder="Paste logo URL here" style="padding: 8px; border: 1px solid #ddd; border-radius: 5px; width: 300px; font-size: 14px;">
-                    <button onclick="handleLogoURL()" style="padding: 8px 20px; background: #2196f3; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">Use URL</button>
-                    <button onclick="removeLogo()" style="padding: 8px 20px; background: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">Remove Logo</button>
+                    <button type="button" id="url-btn" style="padding: 8px 20px; background: #2196f3 !important; color: white !important; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">Use URL</button>
+                    <button type="button" id="remove-btn" style="padding: 8px 20px; background: #f44336 !important; color: white !important; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">Remove Logo</button>
                 </div>
                 <p style="margin: 10px 0 0 0; font-size: 12px; color: #777;">💡 Recommended: PNG or JPG, max width 400px, transparent background preferred</p>
             </div>
@@ -1538,10 +1538,42 @@
         // Set today's date
         document.getElementById('assessment-date').valueAsDate = new Date();
 
+        // Set up logo upload event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Upload button
+            document.getElementById('upload-btn').addEventListener('click', function() {
+                document.getElementById('logo-upload').click();
+            });
+            
+            // File input change
+            document.getElementById('logo-upload').addEventListener('change', function(event) {
+                handleLogoUpload(event);
+            });
+            
+            // URL button
+            document.getElementById('url-btn').addEventListener('click', function() {
+                handleLogoURL();
+            });
+            
+            // Remove button
+            document.getElementById('remove-btn').addEventListener('click', function() {
+                removeLogo();
+            });
+        });
+
         // Logo handling functions
         function handleLogoUpload(event) {
             const file = event.target.files[0];
             if (file) {
+                console.log('File selected:', file.name, file.size, file.type);
+                
+                // Check file type
+                if (!file.type.match('image.*')) {
+                    alert('Please select an image file (PNG, JPG, etc.)');
+                    return;
+                }
+                
+                // Check file size
                 if (file.size > 5000000) { // 5MB limit
                     alert('File size too large. Please use an image under 5MB.');
                     return;
@@ -1551,14 +1583,22 @@
                 reader.onload = function(e) {
                     logoDataURL = e.target.result;
                     displayLogo(logoDataURL);
+                    console.log('Logo loaded successfully');
+                };
+                reader.onerror = function(e) {
+                    console.error('Error reading file:', e);
+                    alert('Error reading file. Please try again.');
                 };
                 reader.readAsDataURL(file);
+            } else {
+                console.log('No file selected');
             }
         }
 
         function handleLogoURL() {
             const url = document.getElementById('logo-url').value.trim();
             if (url) {
+                console.log('Loading logo from URL:', url);
                 logoDataURL = url;
                 displayLogo(url);
             } else {
@@ -1568,10 +1608,29 @@
 
         function displayLogo(src) {
             const logoDisplay = document.getElementById('logo-display');
-            logoDisplay.innerHTML = `<img src="${src}" alt="Practice Logo" style="max-width: 400px; max-height: 120px; height: auto;">`;
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = 'Practice Logo';
+            img.style.maxWidth = '400px';
+            img.style.maxHeight = '120px';
+            img.style.height = 'auto';
+            
+            img.onload = function() {
+                logoDisplay.innerHTML = '';
+                logoDisplay.appendChild(img);
+                console.log('Logo displayed successfully');
+            };
+            
+            img.onerror = function() {
+                console.error('Error loading logo image');
+                alert('Error loading logo. Please check the file or URL and try again.');
+                logoDataURL = null;
+                logoDisplay.innerHTML = '';
+            };
         }
 
         function removeLogo() {
+            console.log('Removing logo');
             logoDataURL = null;
             document.getElementById('logo-display').innerHTML = '';
             document.getElementById('logo-upload').value = '';
