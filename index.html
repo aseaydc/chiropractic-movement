@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seay Wellness - Complete M4 Assessment System</title>
+    <title>Seay Wellness - Complete M4 Assessment & Treatment Planning System</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -75,213 +75,439 @@
 </head>
 <body>
     <div class="container">
-        <div style="text-align: center; margin-bottom: 30px;">
+        <div style="text-align: center; margin-bottom: 30px; padding: 20px; background: white; border-radius: 10px;">
             <div id="logo-display" style="margin-bottom: 15px; min-height: 80px; display: flex; align-items: center; justify-content: center;"></div>
-            <div style="padding: 15px; background: #f8f9fa; border-radius: 8px;">
-                <input type="file" id="logo-upload" accept="image/*" style="display: none;">
-                <button type="button" onclick="document.getElementById('logo-upload').click()" style="padding: 8px 20px; background: #4caf50; margin: 5px;">Upload Logo</button>
-                <input type="text" id="logo-url" placeholder="Or paste URL" style="padding: 8px; width: 300px;">
-                <button type="button" onclick="handleLogoURL()" style="padding: 8px 20px; background: #2196f3; margin: 5px;">Use URL</button>
-                <button type="button" onclick="removeLogo()" style="padding: 8px 20px; background: #f44336; margin: 5px;">Remove</button>
+            <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 2px dashed #ddd;">
+                <p style="margin: 0 0 10px 0; font-weight: bold; color: #555; font-size: 14px;">📷 Add Your Practice Logo</p>
+                <div style="display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap;">
+                    <input type="file" id="logo-upload" accept="image/*" style="display: none;">
+                    <button type="button" onclick="document.getElementById('logo-upload').click()" style="padding: 8px 20px; background: #4caf50; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;">Upload Logo</button>
+                    <span style="color: #999;">OR</span>
+                    <input type="text" id="logo-url" placeholder="Paste logo URL" style="padding: 8px; border: 1px solid #ddd; border-radius: 5px; width: 300px; font-size: 14px;">
+                    <button type="button" onclick="handleLogoURL()" style="padding: 8px 20px; background: #2196f3; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;">Use URL</button>
+                    <button type="button" onclick="removeLogo()" style="padding: 8px 20px; background: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;">Remove</button>
+                </div>
             </div>
         </div>
         
-        <h1>Seay Wellness Complete M4 Assessment</h1>
-        <p class="subtitle">F.I.T., MoveWell3, BACKSYS®/NECKSYS®, Vertebral Analysis & Treatment Planning</p>
+        <h1>Seay Wellness Complete M4 Assessment System</h1>
+        <p class="subtitle">Integrated F.I.T., MoveWell3, BACKSYS®/NECKSYS®, Vertebral Analysis & Treatment Planning</p>
         
         <div class="section">
             <h2>📋 Patient Information</h2>
             <div class="grid-3">
-                <div class="input-group"><label>Patient Name:</label><input type="text" id="patientName"></div>
-                <div class="input-group"><label>Age:</label><input type="number" id="patientAge"></div>
-                <div class="input-group"><label>Date:</label><input type="date" id="assessmentDate"></div>
+                <div class="input-group"><label>Patient Name:</label><input type="text" id="patientName" placeholder="Enter patient name"></div>
+                <div class="input-group"><label>Age:</label><input type="number" id="patientAge" placeholder="Age"></div>
+                <div class="input-group"><label>Date of Assessment:</label><input type="date" id="assessmentDate"></div>
             </div>
             <div class="grid-2">
-                <div class="input-group"><label>Chief Complaint:</label><textarea id="chiefComplaint" rows="3"></textarea></div>
-                <div class="input-group"><label>Secondary Concerns:</label><textarea id="secondaryConcerns" rows="3"></textarea></div>
+                <div class="input-group"><label>Chief Complaint:</label><textarea id="chiefComplaint" rows="3" placeholder="Primary reason for visit..."></textarea></div>
+                <div class="input-group"><label>Secondary Concerns:</label><textarea id="secondaryConcerns" rows="3" placeholder="Additional symptoms or concerns..."></textarea></div>
             </div>
         </div>
 
         <div class="section">
-            <h2>🎯 F.I.T. Foundation Tests (1-5)</h2>
+            <h2>💳 Insurance & Payment Information</h2>
+            <div class="grid-2">
+                <div class="input-group"><label>Payment Type:</label><select id="paymentType"><option value="cash">Cash/Self-Pay</option><option value="insurance">Insurance</option><option value="membership">Membership Plan</option></select></div>
+                <div class="input-group" id="insuranceCarrierGroup" style="display:none;"><label>Insurance Carrier:</label><input type="text" id="insuranceCarrier" placeholder="Enter insurance carrier"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 F.I.T. Foundation Assessment (All 16 Tests)</h2>
+            <p style="margin-bottom: 20px; padding: 15px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 5px;"><strong>Foundation Requirement:</strong> Patient must pass at least 4 of the first 5 foundation tests before proceeding to movement testing.</p>
+            
+            <h3>Foundation Tests (Must Pass 4/5)</h3>
+            
             <div class="fit-test-card">
                 <h4>Test 1: Testability & Switching</h4>
                 <div class="grid-2">
-                    <div class="input-group"><label>Testability:</label><select id="testability"><option value="">Select...</option><option value="passed">Passed</option><option value="failed">Failed</option></select></div>
-                    <div class="input-group"><label>Switching:</label><select id="switching"><option value="">Select...</option><option value="passed">Passed</option><option value="failed">Failed</option></select></div>
+                    <div class="input-group"><label>Testability Result:</label><select id="testability"><option value="">Select...</option><option value="passed">Passed</option><option value="failed">Failed</option></select></div>
+                    <div class="input-group"><label>Switching Result:</label><select id="switching"><option value="">Select...</option><option value="passed">Passed</option><option value="failed">Failed</option></select></div>
+                </div>
+                <div class="consequences-box">
+                    <h5>If Failed - Health Consequences:</h5>
+                    <ul style="margin: 10px 0 10px 20px; font-size: 14px;">
+                        <li><strong>Immediate:</strong> Inability to accurately assess dysfunction; false test results</li>
+                        <li><strong>Long-term:</strong> Chronic nervous system disruption, poor adaptation to stress, impaired healing response, persistent inflammation</li>
+                    </ul>
                 </div>
             </div>
+
             <div class="fit-test-card">
-                <h4>Test 2: Bilateral Scales</h4>
+                <h4>Test 2: Bilateral Scales (Weight Distribution)</h4>
                 <div class="grid-4">
                     <div class="input-group"><label>Right (lbs):</label><input type="number" id="scaleRight" step="0.1"></div>
                     <div class="input-group"><label>Left (lbs):</label><input type="number" id="scaleLeft" step="0.1"></div>
                     <div class="input-group"><label>Difference:</label><input type="text" id="scaleDiff" readonly style="background: #f0f0f0;"></div>
-                    <div class="input-group"><label>Result:</label><select id="bilateralResult"><option value="">Select...</option><option value="passed">Passed</option><option value="failed">Failed</option></select></div>
+                    <div class="input-group"><label>Result:</label><select id="bilateralResult"><option value="">Select...</option><option value="passed">Passed (≤10 lbs diff)</option><option value="failed">Failed (>10 lbs diff)</option></select></div>
+                </div>
+                <div class="consequences-box">
+                    <h5>If Failed - Health Consequences:</h5>
+                    <ul style="margin: 10px 0 10px 20px; font-size: 14px;">
+                        <li><strong>Immediate:</strong> Unilateral joint loading, postural compensation</li>
+                        <li><strong>Long-term:</strong> Accelerated unilateral joint degeneration (hip, knee, ankle), scoliosis development, pelvic dysfunction, increased fall risk, chronic SI joint dysfunction</li>
+                    </ul>
                 </div>
             </div>
+
             <div class="fit-test-card">
-                <h4>Test 3: Standing Stress Test</h4>
+                <h4>Test 3: Standing Stress Test (SI Ligament Integrity)</h4>
                 <div class="grid-2">
                     <div class="input-group"><label>Result:</label><select id="standingStress"><option value="">Select...</option><option value="passed">Passed</option><option value="failed">Failed</option></select></div>
-                    <div class="input-group"><label>Belt Response:</label><select id="standingStressBelt"><option value="">Select...</option><option value="improved">Improved</option><option value="no-change">No Change</option></select></div>
+                    <div class="input-group"><label>Belt Response:</label><select id="standingStressBelt"><option value="">Select...</option><option value="improved">Improved with Belt</option><option value="no-change">No Change</option></select></div>
+                </div>
+                <div class="consequences-box">
+                    <h5>If Failed - Health Consequences:</h5>
+                    <ul style="margin: 10px 0 10px 20px; font-size: 14px;">
+                        <li><strong>Immediate:</strong> Chronic low back instability, compensation patterns affecting entire kinetic chain</li>
+                        <li><strong>Long-term:</strong> Degenerative disc disease, carpal tunnel syndrome, plantar fasciitis, shoulder dysfunction, chronic pain syndromes, failed back surgery syndrome</li>
+                        <li><strong>Note:</strong> SI dysfunction is the most missed and mismanaged joint in the body</li>
+                    </ul>
                 </div>
             </div>
+
             <div class="fit-test-card">
-                <h4>Test 4: Brain-Cortex</h4>
-                <div class="input-group"><label>Result:</label><select id="brainCortexResult"><option value="">Select...</option><option value="passed">Passed</option><option value="failed">Failed</option></select></div>
-            </div>
-            <div class="fit-test-card">
-                <h4>Test 5: Cerebellum</h4>
+                <h4>Test 4: Brain-Cortex (Voluntary Motion)</h4>
                 <div class="grid-2">
-                    <div class="input-group"><label>Sway:</label><select id="cerebellarSway"><option value="">Select...</option><option value="none">No Sway</option><option value="right">Right</option><option value="left">Left</option></select></div>
+                    <div class="input-group"><label>Humming (Right Cortex):</label><select id="cortexHumming"><option value="">Select...</option><option value="strong">Strong</option><option value="weak">Weak</option></select></div>
+                    <div class="input-group"><label>Counting (Left Cortex):</label><select id="cortexCounting"><option value="">Select...</option><option value="strong">Strong</option><option value="weak">Weak</option></select></div>
+                </div>
+                <div class="input-group"><label>Overall Result:</label><select id="brainCortexResult"><option value="">Select...</option><option value="passed">Passed</option><option value="failed">Failed</option></select></div>
+                <div class="consequences-box">
+                    <h5>If Failed - Health Consequences:</h5>
+                    <ul style="margin: 10px 0 10px 20px; font-size: 14px;">
+                        <li><strong>Immediate:</strong> Poor motor control, coordination deficits, increased injury risk</li>
+                        <li><strong>Long-term:</strong> Progressive movement dysfunction, accelerated brain aging, increased fall risk with age, cognitive decline correlation, reduced athletic performance</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="fit-test-card">
+                <h4>Test 5: Cerebellum (Balance & Coordination)</h4>
+                <div class="grid-2">
+                    <div class="input-group"><label>Sway Direction:</label><select id="cerebellarSway"><option value="">Select...</option><option value="none">No Sway - Functional</option><option value="right">Right Sway</option><option value="left">Left Sway</option></select></div>
                     <div class="input-group"><label>Result:</label><select id="cerebellarResult"><option value="">Select...</option><option value="passed">Passed</option><option value="failed">Failed</option></select></div>
                 </div>
+                <div class="consequences-box">
+                    <h5>If Failed - Health Consequences:</h5>
+                    <ul style="margin: 10px 0 10px 20px; font-size: 14px;">
+                        <li><strong>Immediate:</strong> Fall risk, poor proprioception, vestibular dysfunction</li>
+                        <li><strong>Long-term:</strong> Progressive cerebellar degeneration, increased fall-related injury with aging, autonomic nervous system dysregulation, impaired motor learning, chronic dizziness/vertigo</li>
+                    </ul>
+                </div>
             </div>
-        </div>
 
-        <div class="section">
-            <h2>💪 F.I.T. Capacity Tests (6-16)</h2>
+            <h3 style="margin-top: 30px;">Functional Capacity Tests (6-16)</h3>
+
             <div class="fit-test-card">
-                <h4>Test 6: JAMAR Grip</h4>
+                <h4>Test 6: JAMAR Grip Strength</h4>
                 <div class="grid-3">
-                    <div class="input-group"><label>Right (lbs):</label><input type="number" id="jamarRight" step="0.1"></div>
-                    <div class="input-group"><label>Left (lbs):</label><input type="number" id="jamarLeft" step="0.1"></div>
+                    <div class="input-group"><label>Right Hand (lbs):</label><input type="number" id="jamarRight" step="0.1"></div>
+                    <div class="input-group"><label>Left Hand (lbs):</label><input type="number" id="jamarLeft" step="0.1"></div>
                     <div class="input-group"><label>Difference:</label><input type="text" id="jamarDiff" readonly style="background: #f0f0f0;"></div>
                 </div>
-            </div>
-            <div class="fit-test-card">
-                <h4>Test 11: SlackBlock</h4>
-                <div class="grid-3">
-                    <div class="input-group"><label>Right (sec):</label><input type="number" id="slackBlockRight"></div>
-                    <div class="input-group"><label>Left (sec):</label><input type="number" id="slackBlockLeft"></div>
-                    <div class="input-group"><label>Result:</label><select id="slackBlockResult"><option value="">Select...</option><option value="passed">Passed (30+ sec)</option><option value="failed">Failed</option></select></div>
+                <div class="consequences-box">
+                    <h5>If Below Norms - Health Consequences:</h5>
+                    <ul style="margin: 10px 0 10px 20px; font-size: 14px;">
+                        <li><strong>Immediate:</strong> Reduced functional capacity, weak brachial plexus (C5-T1)</li>
+                        <li><strong>Long-term:</strong> Increased all-cause mortality risk, cardiovascular disease correlation, type 2 diabetes risk, frailty syndrome development, cognitive decline association, reduced independence with aging</li>
+                        <li><strong>Research:</strong> Low grip strength predicts health destiny across lifespan</li>
+                    </ul>
                 </div>
             </div>
-        </div>
 
-        <div class="section">
-            <h2>🏃 MoveWell3 Screening</h2>
             <div class="fit-test-card">
-                <h4>Deep Squat</h4>
+                <h4>Test 7-10: Additional Capacity Tests</h4>
+                <p>Grip Strength Assessment, Band Extensions, Front Raise, Slant Board</p>
+            </div>
+
+            <div class="fit-test-card">
+                <h4>Test 11: SlackBlock (Dynamic Balance)</h4>
+                <div class="grid-3">
+                    <div class="input-group"><label>Right Foot Time (sec):</label><input type="number" id="slackBlockRight"></div>
+                    <div class="input-group"><label>Left Foot Time (sec):</label><input type="number" id="slackBlockLeft"></div>
+                    <div class="input-group"><label>Result:</label><select id="slackBlockResult"><option value="">Select...</option><option value="passed">Passed (30+ sec)</option><option value="failed">Failed (<30 sec)</option></select></div>
+                </div>
+            </div>
+
+            <div class="fit-test-card">
+                <h4>Test 12-16: Additional Tests</h4>
+                <p>Calf Master, Core Stretch, Quad Stretch, Side Lying Clams, Bird Dog</p>
+            </div>
+        </div>
+        <div class="section">
+            <h2>🏃 MoveWell3 Level 1 Movement Screening</h2>
+            <div class="fit-test-card">
+                <h4>Overhead Deep Squat</h4>
                 <div class="grid-2">
                     <div class="input-group"><label>Result:</label><select id="deepSquat"><option value="">Select...</option><option value="functional">Functional</option><option value="dysfunctional">Dysfunctional</option><option value="painful">Painful</option></select></div>
-                    <div class="input-group"><label>Pain (0-10):</label><input type="number" id="deepSquatPain" min="0" max="10" value="0"></div>
+                    <div class="input-group"><label>Pain Level (0-10):</label><input type="number" id="deepSquatPain" min="0" max="10" value="0"></div>
+                </div>
+                <div class="checkbox-group">
+                    <label class="checkbox-item"><input type="checkbox" id="squatFeetFlatten"> Feet flatten</label>
+                    <label class="checkbox-item"><input type="checkbox" id="squatAntPelvicTilt"> Anterior pelvic tilt</label>
+                    <label class="checkbox-item"><input type="checkbox" id="squatKneesDeviate"> Knees deviate</label>
+                    <label class="checkbox-item"><input type="checkbox" id="squatForwardLean"> Forward lean</label>
+                    <label class="checkbox-item"><input type="checkbox" id="squatArmsFall"> Arms fall</label>
                 </div>
             </div>
             <div class="fit-test-card">
-                <h4>Cervical ROM</h4>
+                <h4>Cervical Range of Motion</h4>
                 <div class="grid-3">
-                    <div class="input-group"><label>Flexion:</label><select id="cervicalFlexion"><option value="">Select...</option><option value="functional">Functional</option><option value="limited">Limited</option><option value="painful">Painful</option></select></div>
-                    <div class="input-group"><label>Extension:</label><select id="cervicalExtension"><option value="">Select...</option><option value="functional">Functional</option><option value="limited">Limited</option><option value="painful">Painful</option></select></div>
-                    <div class="input-group"><label>Rotation:</label><select id="cervicalRotation"><option value="">Select...</option><option value="functional">Functional</option><option value="limited">Limited</option><option value="painful">Painful</option></select></div>
+                    <div class="input-group"><label>Flexion:</label><select id="cervicalFlexion"><option value="">Select...</option><option value="functional">Functional (50°)</option><option value="limited">Limited</option><option value="painful">Painful</option></select></div>
+                    <div class="input-group"><label>Extension:</label><select id="cervicalExtension"><option value="">Select...</option><option value="functional">Functional (60°)</option><option value="limited">Limited</option><option value="painful">Painful</option></select></div>
+                    <div class="input-group"><label>Rotation (each side):</label><select id="cervicalRotation"><option value="">Select...</option><option value="functional">Functional (80°)</option><option value="limited">Limited</option><option value="painful">Painful</option></select></div>
                 </div>
             </div>
         </div>
 
         <div class="section">
-            <h2>📐 Postural Deviations (BACKSYS®/NECKSYS®)</h2>
-            <p>Click to select deviations:</p>
-            <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Right Lateral Translation (Thoracic)">Right Lateral Translation (Thoracic)</button>
-            <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Left Lateral Translation (Thoracic)">Left Lateral Translation (Thoracic)</button>
-            <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Left Translation (Cervical)">Left Translation (Cervical)</button>
-            <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Right Translation (Cervical)">Right Translation (Cervical)</button>
+            <h2>📐 Postural Deviation Analysis (BACKSYS® & NECKSYS®)</h2>
+            <p style="margin-bottom: 15px;"><strong>Equipment:</strong> Spinal/Back = BACKSYS® | Cervical = NECKSYS®</p>
+            <p>Select the postural deviations observed. The system will include TheraCiser corrective exercises with the standard BACKSYS/NECKSYS repetition protocol.</p>
+            
+            <h3 style="color: #2196f3; margin-top: 25px;">Spinal & Pelvic Postural Deviations (BACKSYS®)</h3>
+            <div class="deviation-list" style="margin-top: 15px;">
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Right Lateral Translation (Thoracic)" data-description="Armless chair required. Insert retainer tab at mid-door level on left side.">Right Lateral Translation (Thoracic)</button>
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Left Lateral Translation (Thoracic)" data-description="Armless chair required. Insert retainer tab at mid-door level on right side.">Left Lateral Translation (Thoracic)</button>
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Right Lateral Flexion (Thoracic)" data-description="Armless chair required. Bend upper body to left.">Right Lateral Flexion (Thoracic)</button>
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Left Lateral Flexion (Thoracic)" data-description="Armless chair required. Bend upper body to right.">Left Lateral Flexion (Thoracic)</button>
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Right Rotation (Thoracic)" data-description="Rotate shoulders to left, away from door.">Right Rotation (Thoracic)</button>
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Left Rotation (Thoracic)" data-description="Rotate shoulders to right, away from door.">Left Rotation (Thoracic)</button>
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Anterior Translation (Thoracic)" data-description="Slide entire upper body backward.">Anterior Translation (Thoracic)</button>
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Posterior Translation (Thoracic)" data-description="Slide entire upper body forward.">Posterior Translation (Thoracic)</button>
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Flexion (Thoracic)" data-description="Lean backward keeping back straight.">Flexion (Thoracic)</button>
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Extension (Thoracic)" data-description="Bend forward while seated.">Extension (Thoracic)</button>
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Right Lateral Translation (Pelvic)" data-description="Shift pelvis to left, away from door.">Right Lateral Translation (Pelvic)</button>
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Left Lateral Translation (Pelvic)" data-description="Shift pelvis to right, away from door.">Left Lateral Translation (Pelvic)</button>
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Right Lateral Flexion (Pelvic)" data-description="No Exercise. Orthotics for stabilization.">Right Lateral Flexion (Pelvic)</button>
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Left Lateral Flexion (Pelvic)" data-description="No Exercise. Orthotics for stabilization.">Left Lateral Flexion (Pelvic)</button>
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Right Rotation (Pelvic)" data-description="Rotate to left, away from door.">Right Rotation (Pelvic)</button>
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Left Rotation (Pelvic)" data-description="Rotate to right, away from door.">Left Rotation (Pelvic)</button>
+            </div>
+            
+            <h3 style="color: #673ab7; margin-top: 40px;">Cervical Postural Distortions (NECKSYS®)</h3>
+            <div class="deviation-list" style="margin-top: 15px;">
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Left Translation (Cervical)" data-description="NECKSYS® Exercise: RIGHT TRANSLATION">Left Translation (Cervical)</button>
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Right Translation (Cervical)" data-description="NECKSYS® Exercise: LEFT TRANSLATION">Right Translation (Cervical)</button>
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Left Lateral Flexion (Cervical)" data-description="NECKSYS® Exercise: RIGHT LATERAL FLEXION">Left Lateral Flexion (Cervical)</button>
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Right Lateral Flexion (Cervical)" data-description="NECKSYS® Exercise: LEFT LATERAL FLEXION">Right Lateral Flexion (Cervical)</button>
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Left Rotation (Cervical)" data-description="NECKSYS® Exercise: RIGHT ROTATION">Left Rotation (Cervical)</button>
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Right Rotation (Cervical)" data-description="NECKSYS® Exercise: LEFT ROTATION">Right Rotation (Cervical)</button>
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Anterior Translation (Cervical)" data-description="NECKSYS® Exercise: POSTERIOR TRANSLATION">Anterior Translation (Cervical)</button>
+                <button class="deviation-btn" onclick="selectDeviation(this)" data-name="Posterior Translation (Cervical)" data-description="NECKSYS® Exercise: ANTERIOR TRANSLATION">Posterior Translation (Cervical)</button>
+            </div>
+            
+            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin-top: 20px; border-radius: 5px;">
+                <p style="margin: 0 0 10px 0; font-weight: bold;">Standard BACKSYS®/NECKSYS® Repetition Protocol:</p>
+                <ol style="margin: 0; padding-left: 20px;">
+                    <li><strong>Start:</strong> 3 sets of 6 reps at a slow pace</li>
+                    <li><strong>Increase Resistance:</strong> 3 times maximum</li>
+                    <li><strong>Progress to:</strong> 3 sets of 10 reps at a slow pace</li>
+                    <li><strong>Final Stage:</strong> 3 sets of 15 reps at a slow pace</li>
+                    <li><strong>Duration:</strong> 3 weeks to 12+ months</li>
+                </ol>
+            </div>
         </div>
 
         <div class="section">
-            <h2>🎯 Vertebral Subluxation Analysis</h2>
-            <p>Click vertebrae to select (click again to deselect):</p>
-            <div id="selected-verts-summary" style="display: none; background: #ffebee; padding: 15px; border-radius: 5px; margin: 15px 0;">
-                <h4 style="color: #c62828;">✓ Selected: <span id="vert-count">0</span></h4>
-                <div id="selected-verts-list" style="display: flex; flex-wrap: wrap; gap: 8px;"></div>
-                <button type="button" onclick="clearAllVerts()" style="padding: 8px 15px; font-size: 14px; background: #f44336; margin-top: 10px;">Clear All</button>
+            <h2>🎯 Vertebral Subluxation & Organ System Analysis (Meric Chart)</h2>
+            <div style="background: #e3f2fd; padding: 15px; border-left: 4px solid #2196f3; border-radius: 5px; margin-bottom: 20px;">
+                <p style="margin: 0; font-weight: bold;">📝 Instructions:</p>
+                <p style="margin: 5px 0 0 0;">Click on vertebral levels to SELECT MULTIPLE vertebrae with subluxations. Click again to deselect. Selected vertebrae will turn RED.</p>
             </div>
+            
+            <div id="selected-verts-summary" style="display: none; background: #ffebee; border-left: 4px solid #ef5350; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                <h4 style="color: #c62828; margin-top: 0;">✓ Selected Vertebral Levels (<span id="vert-count">0</span>):</h4>
+                <div id="selected-verts-list" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;"></div>
+                <button type="button" onclick="clearAllVerts()" style="padding: 8px 15px; font-size: 14px; background: #f44336;">Clear All Selections</button>
+            </div>
+            
             <div class="spine-container">
                 <div class="spine-grid">
                     <div class="spine-section-label">CERVICAL</div>
-                    <div class="vertebra" onclick="selectVert('C1')">C1</div>
-                    <div class="vertebra" onclick="selectVert('C2')">C2</div>
-                    <div class="vertebra" onclick="selectVert('C3')">C3</div>
-                    <div class="vertebra" onclick="selectVert('C4')">C4</div>
-                    <div class="vertebra" onclick="selectVert('C5')">C5</div>
-                    <div class="vertebra" onclick="selectVert('C6')">C6</div>
-                    <div class="vertebra" onclick="selectVert('C7')">C7</div>
+                    <div class="vertebra" data-vert="C1" onclick="selectVert('C1', event)">C1</div>
+                    <div class="vertebra" data-vert="C2" onclick="selectVert('C2', event)">C2</div>
+                    <div class="vertebra" data-vert="C3" onclick="selectVert('C3', event)">C3</div>
+                    <div class="vertebra" data-vert="C4" onclick="selectVert('C4', event)">C4</div>
+                    <div class="vertebra" data-vert="C5" onclick="selectVert('C5', event)">C5</div>
+                    <div class="vertebra" data-vert="C6" onclick="selectVert('C6', event)">C6</div>
+                    <div class="vertebra" data-vert="C7" onclick="selectVert('C7', event)">C7</div>
                     <div class="spine-section-label">THORACIC</div>
-                    <div class="vertebra" onclick="selectVert('T1')">T1</div>
-                    <div class="vertebra" onclick="selectVert('T2')">T2</div>
-                    <div class="vertebra" onclick="selectVert('T3')">T3</div>
-                    <div class="vertebra" onclick="selectVert('T4')">T4</div>
-                    <div class="vertebra" onclick="selectVert('T5')">T5</div>
-                    <div class="vertebra" onclick="selectVert('T6')">T6</div>
-                    <div class="vertebra" onclick="selectVert('T7')">T7</div>
-                    <div class="vertebra" onclick="selectVert('T8')">T8</div>
-                    <div class="vertebra" onclick="selectVert('T9')">T9</div>
-                    <div class="vertebra" onclick="selectVert('T10')">T10</div>
-                    <div class="vertebra" onclick="selectVert('T11')">T11</div>
-                    <div class="vertebra" onclick="selectVert('T12')">T12</div>
+                    <div class="vertebra" data-vert="T1" onclick="selectVert('T1', event)">T1</div>
+                    <div class="vertebra" data-vert="T2" onclick="selectVert('T2', event)">T2</div>
+                    <div class="vertebra" data-vert="T3" onclick="selectVert('T3', event)">T3</div>
+                    <div class="vertebra" data-vert="T4" onclick="selectVert('T4', event)">T4</div>
+                    <div class="vertebra" data-vert="T5" onclick="selectVert('T5', event)">T5</div>
+                    <div class="vertebra" data-vert="T6" onclick="selectVert('T6', event)">T6</div>
+                    <div class="vertebra" data-vert="T7" onclick="selectVert('T7', event)">T7</div>
+                    <div class="vertebra" data-vert="T8" onclick="selectVert('T8', event)">T8</div>
+                    <div class="vertebra" data-vert="T9" onclick="selectVert('T9', event)">T9</div>
+                    <div class="vertebra" data-vert="T10" onclick="selectVert('T10', event)">T10</div>
+                    <div class="vertebra" data-vert="T11" onclick="selectVert('T11', event)">T11</div>
+                    <div class="vertebra" data-vert="T12" onclick="selectVert('T12', event)">T12</div>
                     <div class="spine-section-label">LUMBAR</div>
-                    <div class="vertebra" onclick="selectVert('L1')">L1</div>
-                    <div class="vertebra" onclick="selectVert('L2')">L2</div>
-                    <div class="vertebra" onclick="selectVert('L3')">L3</div>
-                    <div class="vertebra" onclick="selectVert('L4')">L4</div>
-                    <div class="vertebra" onclick="selectVert('L5')">L5</div>
+                    <div class="vertebra" data-vert="L1" onclick="selectVert('L1', event)">L1</div>
+                    <div class="vertebra" data-vert="L2" onclick="selectVert('L2', event)">L2</div>
+                    <div class="vertebra" data-vert="L3" onclick="selectVert('L3', event)">L3</div>
+                    <div class="vertebra" data-vert="L4" onclick="selectVert('L4', event)">L4</div>
+                    <div class="vertebra" data-vert="L5" onclick="selectVert('L5', event)">L5</div>
                     <div class="spine-section-label">SACRAL</div>
-                    <div class="vertebra" onclick="selectVert('Sacrum')">Sacrum</div>
+                    <div class="vertebra" data-vert="Sacrum" onclick="selectVert('Sacrum', event)">Sacrum</div>
+                    <div class="vertebra" data-vert="Coccyx" onclick="selectVert('Coccyx', event)">Coccyx</div>
+                </div>
+            </div>
+            
+            <div id="subluxation-info" style="display: none;">
+                <h4>Selected Vertebrae Information</h4>
+                <div id="all-verts-info"></div>
+            </div>
+            
+            <div class="input-group">
+                <label>Additional Subluxation Notes:</label>
+                <textarea id="subluxationNotes" rows="3" placeholder="Document specific findings, motion palpation results, or X-ray findings"></textarea>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🏥 Treatment Services & Pricing</h2>
+            <h3>Select Services for This Patient</h3>
+            <div class="service-selector">
+                <div class="service-item">
+                    <label><input type="checkbox" id="serviceAdjustment" data-price="75"><strong>Chiropractic Adjustment</strong></label>
+                    <p style="margin: 5px 0; font-size: 13px; color: #666;">$75 per visit</p>
+                </div>
+                <div class="service-item">
+                    <label><input type="checkbox" id="serviceART" data-price="65"><strong>Active Release Technique</strong></label>
+                    <p style="margin: 5px 0; font-size: 13px; color: #666;">$65 per visit</p>
+                </div>
+                <div class="service-item">
+                    <label><input type="checkbox" id="serviceDryNeedling" data-price="55"><strong>Dry Needling</strong></label>
+                    <p style="margin: 5px 0; font-size: 13px; color: #666;">$55 per visit</p>
+                </div>
+                <div class="service-item">
+                    <label><input type="checkbox" id="serviceRehab" data-price="80"><strong>Functional Rehabilitation</strong></label>
+                    <p style="margin: 5px 0; font-size: 13px; color: #666;">$80 per visit</p>
+                </div>
+                <div class="service-item">
+                    <label><input type="checkbox" id="serviceDecompression" data-price="95"><strong>Spinal Decompression</strong></label>
+                    <p style="margin: 5px 0; font-size: 13px; color: #666;">$95 per visit</p>
+                </div>
+                <div class="service-item">
+                    <label><input type="checkbox" id="serviceLaser" data-price="75"><strong>Laser Therapy</strong></label>
+                    <p style="margin: 5px 0; font-size: 13px; color: #666;">$75 per visit</p>
+                </div>
+                <div class="service-item">
+                    <label><input type="checkbox" id="serviceNormaTec" data-price="40"><strong>NormaTec Compression</strong></label>
+                    <p style="margin: 5px 0; font-size: 13px; color: #666;">$40 per visit</p>
+                </div>
+                <div class="service-item">
+                    <label><input type="checkbox" id="serviceSauna" data-price="40"><strong>Infrared Sauna</strong></label>
+                    <p style="margin: 5px 0; font-size: 13px; color: #666;">$40 per visit</p>
+                </div>
+                <div class="service-item">
+                    <label><input type="checkbox" id="serviceDetox" data-price="45"><strong>Detox Foot Bath</strong></label>
+                    <p style="margin: 5px 0; font-size: 13px; color: #666;">$45 per visit</p>
                 </div>
             </div>
         </div>
 
         <div class="section">
-            <h2>🏥 Treatment Services</h2>
-            <div class="service-selector">
-                <div class="service-item"><label><input type="checkbox" id="serviceAdjustment"><strong>Adjustment</strong></label><p>$75</p></div>
-                <div class="service-item"><label><input type="checkbox" id="serviceART"><strong>ART</strong></label><p>$65</p></div>
-                <div class="service-item"><label><input type="checkbox" id="serviceDryNeedling"><strong>Dry Needling</strong></label><p>$55</p></div>
-                <div class="service-item"><label><input type="checkbox" id="serviceRehab"><strong>Rehab</strong></label><p>$80</p></div>
-                <div class="service-item"><label><input type="checkbox" id="serviceLaser"><strong>Laser</strong></label><p>$75</p></div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>💼 Membership Plans</h2>
+            <h2>💼 Membership Plan Recommendation</h2>
             <div class="plan-selector">
-                <div class="plan-option" onclick="selectPlan(this)" data-plan="core-support"><strong>Core Support - $128/mo</strong><br>2 Adjustments/month</div>
-                <div class="plan-option" onclick="selectPlan(this)" data-plan="essential-care"><strong>Essential Care - $240/mo</strong><br>4 Adjustments/month</div>
-                <div class="plan-option" onclick="selectPlan(this)" data-plan="complete-care"><strong>Complete Care - $595/mo</strong><br>4 Adj + 4 Rehab + 4 Laser + 4 ART</div>
+                <h3>Select Recommended Plan</h3>
+                <div class="plan-option" data-plan="core-support" onclick="selectPlan(this)">
+                    <strong>Core Support Plan - $128/month</strong><br>
+                    <span style="font-size: 14px; color: #666;">2 Adjustments/month | 15% off additional services</span>
+                </div>
+                <div class="plan-option" data-plan="essential-care" onclick="selectPlan(this)">
+                    <strong>Essential Care Plan - $240/month</strong><br>
+                    <span style="font-size: 14px; color: #666;">4 Adjustments/month | 15% off additional services</span>
+                </div>
+                <div class="plan-option" data-plan="pain-relief" onclick="selectPlan(this)">
+                    <strong>Pain Relief Plan - $315/month</strong><br>
+                    <span style="font-size: 14px; color: #666;">4 Adjustments + 2 Dry Needling + 2 Laser | 20% off additional</span>
+                </div>
+                <div class="plan-option" data-plan="active-recovery" onclick="selectPlan(this)">
+                    <strong>Active Recovery Plan - $315/month</strong><br>
+                    <span style="font-size: 14px; color: #666;">4 Adjustments + 4 ART sessions | 20% off additional</span>
+                </div>
+                <div class="plan-option" data-plan="complete-care" onclick="selectPlan(this)">
+                    <strong>Complete Care Plan - $595/month</strong><br>
+                    <span style="font-size: 14px; color: #666;">4 Adjustments + 4 Rehab + 4 Laser + 4 ART | 25% off additional</span>
+                </div>
                 <input type="hidden" id="selectedPlan">
             </div>
         </div>
 
         <div class="section">
-            <h2>💊 Supplement Protocols</h2>
+            <h2>💊 Medicinal Nutrition - Supplement Protocol</h2>
+            <h3>Core Foundation Protocol</h3>
             <div class="supplement-card">
-                <label><input type="checkbox" id="suppJointSupport"><h4 style="display: inline;">Joint Support</h4></label>
-                <p>Glucosamine/Chondroitin, Collagen, Inflamma LF</p>
+                <label><input type="checkbox" id="suppJointSupport"><h4 style="display: inline; color: #4caf50;">Joint Structure & Cartilage Support</h4></label>
+                <ul style="margin: 10px 0 10px 20px; font-size: 14px;">
+                    <li>Designs for Health Glucosamine/Chondroitin: 1,500 mg + 1,200 mg daily</li>
+                    <li>Professional Health Products Collagen Complex: 3 capsules daily</li>
+                    <li>Physica Inflamma LF: 3 caps qid between meals</li>
+                </ul>
             </div>
             <div class="supplement-card">
-                <label><input type="checkbox" id="suppAntiInflammatory"><h4 style="display: inline;">Anti-Inflammatory</h4></label>
-                <p>Bio-A Curcumin, Bio-Omega 3, Inflamma LF</p>
+                <label><input type="checkbox" id="suppAntiInflammatory"><h4 style="display: inline; color: #4caf50;">🔥 Anti-Inflammatory Support</h4></label>
+                <ul style="margin: 10px 0 10px 20px; font-size: 14px;">
+                    <li>Physica Bio-A Curcumin PhytoNanosome: 1 cap breakfast & lunch, 1-2 caps dinner</li>
+                    <li>Physica Bio-Omega 3: 2 caps breakfast, 1 cap dinner</li>
+                    <li>Physica Inflamma LF: 3 caps qid between meals</li>
+                </ul>
             </div>
             <div class="supplement-card">
-                <label><input type="checkbox" id="suppNerveSupport"><h4 style="display: inline;">Nerve Support</h4></label>
-                <p>Methyl-B12, BioHealth Matrix, NAC Forte</p>
+                <label><input type="checkbox" id="suppBoneHealth"><h4 style="display: inline; color: #4caf50;">Bone Health & Mineral Support</h4></label>
+                <ul style="margin: 10px 0 10px 20px; font-size: 14px;">
+                    <li>Physica Solray-D3 + K2 Spray: 10 sprays daily</li>
+                    <li>Physica Phyto Cal-Mag + Boron: 1 cap breakfast, 3 caps before bed</li>
+                    <li>Physica Magnesium BisGlycinate: 1 cap before breakfast, 10am, 4pm, 2 caps before bed</li>
+                </ul>
+            </div>
+            <div class="supplement-card">
+                <label><input type="checkbox" id="suppNerveSupport"><h4 style="display: inline; color: #4caf50;">🧠 Nerve Support & Pain Management</h4></label>
+                <ul style="margin: 10px 0 10px 20px; font-size: 14px;">
+                    <li>Physica Methyl-B12 Liposome Spray: 2 sprays breakfast, 1 spray lunch & bedtime</li>
+                    <li>Physica BioHealth Matrix: 2 caps qid</li>
+                    <li>Physica NAC Forte: 1 cap breakfast & lunch, 2 caps dinner</li>
+                    <li>Neurobiologix PEA: 400-600 mg 2x daily</li>
+                </ul>
             </div>
         </div>
 
         <div class="section">
-            <h2>🔬 Lab Testing</h2>
+            <h2>🔬 Metabolic Connection - Laboratory Testing</h2>
             <div class="lab-card">
                 <label><input type="checkbox" id="labCMP"><h4 style="display: inline;">Comprehensive Metabolic Panel</h4></label>
+                <p style="font-size: 14px; margin: 5px 0;">Glucose, electrolytes, kidney function, liver enzymes</p>
             </div>
             <div class="lab-card">
-                <label><input type="checkbox" id="labThyroid"><h4 style="display: inline;">Thyroid Panel</h4></label>
+                <h4>Inflammatory Markers</h4>
+                <div class="checkbox-group">
+                    <label class="checkbox-item"><input type="checkbox" id="labCRP"> hs-CRP</label>
+                    <label class="checkbox-item"><input type="checkbox" id="labESR"> ESR</label>
+                </div>
             </div>
             <div class="lab-card">
-                <label><input type="checkbox" id="labVitD"><h4 style="display: inline;">Vitamin D</h4></label>
+                <label><input type="checkbox" id="labThyroid"><h4 style="display: inline;">Complete Thyroid Panel</h4></label>
+                <p style="font-size: 14px; margin: 5px 0;">TSH, Free T3, Free T4, Reverse T3, TPO antibodies</p>
+            </div>
+            <div class="lab-card">
+                <h4>Nutritional Status</h4>
+                <div class="checkbox-group">
+                    <label class="checkbox-item"><input type="checkbox" id="labVitD"> Vitamin D (25-OH)</label>
+                    <label class="checkbox-item"><input type="checkbox" id="labB12"> Vitamin B12 & MMA</label>
+                    <label class="checkbox-item"><input type="checkbox" id="labIron"> Iron Panel</label>
+                </div>
             </div>
         </div>
 
-        <button onclick="generateReport()">Generate Complete Assessment & Report</button>
+        <button onclick="generateReport()">Generate Complete Assessment & Report of Findings</button>
 
         <div id="actionButtons" class="action-buttons" style="display: none;">
             <button class="print-button" onclick="printReport()">🖨️ Print Report</button>
@@ -293,31 +519,32 @@
 
     <script>
         const vertCorrelations = {
-            'C1': { organs: 'Brain, Pituitary, Scalp', symptoms: 'Headaches, migraines, insomnia' },
-            'C2': { organs: 'Eyes, Sinuses, Forehead', symptoms: 'Sinus troubles, allergies' },
-            'C3': { organs: 'Face, Teeth', symptoms: 'Neuralgia, acne' },
-            'C4': { organs: 'Nose, Lips, Mouth', symptoms: 'Hay fever' },
-            'C5': { organs: 'Vocal Cords, Pharynx', symptoms: 'Laryngitis, hoarseness' },
-            'C6': { organs: 'Neck Muscles, Shoulders', symptoms: 'Stiff neck' },
-            'C7': { organs: 'Thyroid, Shoulders', symptoms: 'Thyroid conditions' },
-            'T1': { organs: 'Arms, Esophagus', symptoms: 'Asthma, cough' },
-            'T2': { organs: 'Heart', symptoms: 'Chest pain' },
-            'T3': { organs: 'Lungs, Chest', symptoms: 'Bronchitis, pneumonia' },
-            'T4': { organs: 'Gallbladder', symptoms: 'Gallbladder issues' },
-            'T5': { organs: 'Liver, Blood', symptoms: 'Liver conditions, anemia' },
-            'T6': { organs: 'Stomach', symptoms: 'Indigestion, heartburn' },
-            'T7': { organs: 'Pancreas', symptoms: 'Diabetes, ulcers' },
-            'T8': { organs: 'Spleen', symptoms: 'Lowered immunity' },
-            'T9': { organs: 'Adrenals', symptoms: 'Allergies, fatigue' },
-            'T10': { organs: 'Kidneys', symptoms: 'Kidney troubles' },
-            'T11': { organs: 'Kidneys, Ureters', symptoms: 'Skin conditions' },
-            'T12': { organs: 'Small Intestines', symptoms: 'Rheumatism, gas' },
-            'L1': { organs: 'Large Intestines', symptoms: 'Constipation, colitis' },
-            'L2': { organs: 'Appendix, Abdomen', symptoms: 'Appendicitis, cramps' },
-            'L3': { organs: 'Sex Organs, Bladder', symptoms: 'Bladder issues, knee pain' },
-            'L4': { organs: 'Prostate, Sciatic', symptoms: 'Sciatica, back pain' },
-            'L5': { organs: 'Lower Legs, Ankles', symptoms: 'Poor circulation, swollen ankles' },
-            'Sacrum': { organs: 'Hip Bones, SI Joint', symptoms: 'SI conditions, pelvic imbalance' }
+            'C1': { organs: 'Brain, Pituitary Gland, Scalp, Inner & Middle Ear', connection: 'Neurological/Endocrine', symptoms: 'Headaches, migraines, nervousness, insomnia, hypertension, chronic fatigue, dizziness, vertigo' },
+            'C2': { organs: 'Eyes, Optic Nerves, Sinuses, Forehead', connection: 'Sensory/Sinus', symptoms: 'Sinus troubles, allergies, eye troubles, earaches, fainting spells' },
+            'C3': { organs: 'Cheeks, Outer Ear, Face Bones, Teeth', connection: 'Facial/Trigeminal', symptoms: 'Neuralgia, neuritis, acne, eczema' },
+            'C4': { organs: 'Nose, Lips, Mouth, Eustachian Tubes', connection: 'Respiratory/ENT', symptoms: 'Hay fever, catarrh, hard of hearing' },
+            'C5': { organs: 'Vocal Cords, Neck Glands, Pharynx', connection: 'Throat/Voice', symptoms: 'Laryngitis, hoarseness, throat conditions' },
+            'C6': { organs: 'Neck Muscles, Shoulders, Tonsils', connection: 'Muscular/Upper Extremity', symptoms: 'Stiff neck, pain in upper arms, tonsillitis' },
+            'C7': { organs: 'Thyroid Gland, Shoulders, Elbows', connection: 'Endocrine/Metabolic', symptoms: 'Bursitis, colds, thyroid conditions' },
+            'T1': { organs: 'Arms, Esophagus, Trachea', connection: 'Upper Extremity/Respiratory', symptoms: 'Asthma, cough, difficult breathing' },
+            'T2': { organs: 'Heart', connection: 'Cardiovascular', symptoms: 'Functional heart conditions, chest pain' },
+            'T3': { organs: 'Lungs, Bronchial Tubes, Chest', connection: 'Respiratory', symptoms: 'Bronchitis, pleurisy, pneumonia' },
+            'T4': { organs: 'Gallbladder', connection: 'Digestive/Hepatobiliary', symptoms: 'Gallbladder conditions, jaundice' },
+            'T5': { organs: 'Liver, Solar Plexus, Blood', connection: 'Detoxification/Circulation', symptoms: 'Liver conditions, low blood pressure, anemia' },
+            'T6': { organs: 'Stomach', connection: 'Digestive/Upper GI', symptoms: 'Stomach troubles, indigestion, heartburn' },
+            'T7': { organs: 'Pancreas, Duodenum', connection: 'Metabolic/Endocrine', symptoms: 'Diabetes, ulcers, gastritis' },
+            'T8': { organs: 'Spleen, Diaphragm', connection: 'Immune/Hematologic', symptoms: 'Lowered resistance, immune dysfunction' },
+            'T9': { organs: 'Adrenal Glands', connection: 'Stress/Endocrine', symptoms: 'Allergies, hives, adrenal fatigue' },
+            'T10': { organs: 'Kidneys', connection: 'Urinary/Filtration', symptoms: 'Kidney troubles, fatigue' },
+            'T11': { organs: 'Kidneys, Ureters', connection: 'Urinary', symptoms: 'Skin conditions, kidney dysfunction' },
+            'T12': { organs: 'Small Intestines, Lymph', connection: 'Digestive/Lymphatic', symptoms: 'Rheumatism, gas pains' },
+            'L1': { organs: 'Large Intestines', connection: 'Digestive/Lower GI', symptoms: 'Constipation, colitis, diarrhea' },
+            'L2': { organs: 'Appendix, Abdomen, Upper Leg', connection: 'Digestive/Lower Extremity', symptoms: 'Appendicitis, cramps, varicose veins' },
+            'L3': { organs: 'Sex Organs, Bladder, Knees', connection: 'Reproductive/Urogenital', symptoms: 'Bladder troubles, menstrual problems, knee pain' },
+            'L4': { organs: 'Prostate, Sciatic Nerve', connection: 'Muscular/Neurological', symptoms: 'Sciatica, lumbago, backaches' },
+            'L5': { organs: 'Lower Legs, Ankles, Feet', connection: 'Circulatory/Lower Extremity', symptoms: 'Poor circulation, swollen ankles, leg cramps' },
+            'Sacrum': { organs: 'Hip Bones, SI Joint', connection: 'Structural/Pelvic', symptoms: 'Sacroiliac conditions, pelvic imbalance' },
+            'Coccyx': { organs: 'Rectum, Anus', connection: 'Digestive/Elimination', symptoms: 'Hemorrhoids, pain at end of spine' }
         };
 
         let selectedVerts = [];
@@ -328,7 +555,7 @@
 
         document.getElementById('logo-upload').addEventListener('change', function(e) {
             const file = e.target.files[0];
-            if (file) {
+            if (file && file.type.match('image.*')) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     logoDataURL = e.target.result;
@@ -370,7 +597,8 @@
             const right = parseFloat(document.getElementById('scaleRight').value) || 0;
             const left = parseFloat(document.getElementById('scaleLeft').value) || 0;
             const diff = Math.abs(right - left);
-            document.getElementById('scaleDiff').value = `${diff.toFixed(1)} lbs`;
+            const heavier = right > left ? 'R' : (left > right ? 'L' : 'Equal');
+            document.getElementById('scaleDiff').value = `${diff.toFixed(1)} lbs (${heavier})`;
         }
 
         document.getElementById('jamarRight').addEventListener('input', calculateJamarDiff);
@@ -380,56 +608,90 @@
             const right = parseFloat(document.getElementById('jamarRight').value) || 0;
             const left = parseFloat(document.getElementById('jamarLeft').value) || 0;
             const diff = Math.abs(right - left);
-            document.getElementById('jamarDiff').value = `${diff.toFixed(1)} lbs`;
+            const stronger = right > left ? 'R' : (left > right ? 'L' : 'Equal');
+            document.getElementById('jamarDiff').value = `${diff.toFixed(1)} lbs (${stronger})`;
         }
 
-        function selectDeviation(btn) {
-            btn.classList.toggle('selected');
-            const name = btn.dataset.name;
-            if (btn.classList.contains('selected')) {
-                selectedDeviations.push({ name: name });
-            } else {
+        function selectDeviation(button) {
+            const name = button.dataset.name;
+            const isSelected = button.classList.contains('selected');
+            
+            if (isSelected) {
+                button.classList.remove('selected');
                 selectedDeviations = selectedDeviations.filter(d => d.name !== name);
+            } else {
+                button.classList.add('selected');
+                selectedDeviations.push({ name: name, description: button.dataset.description });
             }
         }
 
-        function selectVert(vertId) {
-            const element = document.querySelector(`.vertebra:nth-child(${getVertIndex(vertId)})`);
-            if (!element) return;
+        function selectVert(vertId, event) {
+            if (event) event.stopPropagation();
+            const vertElement = document.querySelector(`.vertebra[data-vert="${vertId}"]`);
+            const isSelected = vertElement.classList.contains('selected');
             
-            element.classList.toggle('selected');
-            if (element.classList.contains('selected')) {
-                if (!selectedVerts.includes(vertId)) selectedVerts.push(vertId);
-            } else {
+            if (isSelected) {
+                vertElement.classList.remove('selected');
                 selectedVerts = selectedVerts.filter(v => v !== vertId);
+            } else {
+                vertElement.classList.add('selected');
+                if (!selectedVerts.includes(vertId)) selectedVerts.push(vertId);
             }
             updateVertSummary();
+            updateAllVertsInfo();
         }
 
-        function getVertIndex(vertId) {
-            const verts = ['C1','C2','C3','C4','C5','C6','C7','T1','T2','T3','T4','T5','T6','T7','T8','T9','T10','T11','T12','L1','L2','L3','L4','L5','Sacrum'];
-            return verts.indexOf(vertId) + 2;
-        }
-
-        function updateVertSummary() {
-            const summary = document.getElementById('selected-verts-summary');
-            const count = document.getElementById('vert-count');
-            const list = document.getElementById('selected-verts-list');
+        function updateAllVertsInfo() {
+            const infoDiv = document.getElementById('subluxation-info');
+            const allVertsInfoDiv = document.getElementById('all-verts-info');
             
             if (selectedVerts.length === 0) {
-                summary.style.display = 'none';
+                infoDiv.style.display = 'none';
                 return;
             }
             
-            summary.style.display = 'block';
-            count.textContent = selectedVerts.length;
-            list.innerHTML = selectedVerts.map(v => `<span style="background: #ef5350; color: white; padding: 8px 12px; border-radius: 20px; font-weight: bold;">${v}</span>`).join('');
+            infoDiv.style.display = 'block';
+            let infoHTML = '';
+            selectedVerts.forEach(vertId => {
+                const data = vertCorrelations[vertId];
+                if (data) {
+                    infoHTML += `
+                        <div style="margin-bottom: 20px; padding: 15px; background: #e8f5e9; border-radius: 8px; border-left: 5px solid #4caf50;">
+                            <h4 style="margin-top: 0; color: #2e7d32;">${vertId}: ${data.connection}</h4>
+                            <p><strong>Organs/Systems:</strong> ${data.organs}</p>
+                            <p><strong>Symptoms:</strong> ${data.symptoms}</p>
+                        </div>
+                    `;
+                }
+            });
+            allVertsInfoDiv.innerHTML = infoHTML;
+        }
+
+        function updateVertSummary() {
+            const summaryDiv = document.getElementById('selected-verts-summary');
+            const listDiv = document.getElementById('selected-verts-list');
+            const countSpan = document.getElementById('vert-count');
+            
+            if (selectedVerts.length === 0) {
+                summaryDiv.style.display = 'none';
+                return;
+            }
+            
+            summaryDiv.style.display = 'block';
+            countSpan.textContent = selectedVerts.length;
+            listDiv.innerHTML = selectedVerts.map(vert => `
+                <div style="display: inline-flex; align-items: center; gap: 5px; background: #ef5350; color: white; padding: 8px 12px; border-radius: 20px; font-weight: bold;">
+                    <span>${vert}</span>
+                    <button type="button" onclick="selectVert('${vert}', event)" style="background: white; color: #ef5350; border: none; border-radius: 50%; width: 20px; height: 20px; padding: 0; cursor: pointer; font-weight: bold; font-size: 12px;">×</button>
+                </div>
+            `).join('');
         }
 
         function clearAllVerts() {
             document.querySelectorAll('.vertebra.selected').forEach(el => el.classList.remove('selected'));
             selectedVerts = [];
             updateVertSummary();
+            document.getElementById('subluxation-info').style.display = 'none';
         }
 
         function selectPlan(option) {
@@ -451,7 +713,7 @@
                 margin: 0.5,
                 filename: `${patientName}_M4_Assessment_${date}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
+                html2canvas: { scale: 2, useCORS: true },
                 jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
             }).from(element).save();
         }
@@ -461,13 +723,14 @@
             const patientAge = document.getElementById('patientAge').value || 'N/A';
             const assessmentDate = document.getElementById('assessmentDate').value || new Date().toLocaleDateString();
             const chiefComplaint = document.getElementById('chiefComplaint').value || 'Not specified';
+            const secondaryConcerns = document.getElementById('secondaryConcerns').value || 'None noted';
 
             let severityScore = 0;
             let findings = [];
 
             if (document.getElementById('testability').value === 'failed') {
                 severityScore += 2;
-                findings.push('Testability failure - neurological disruption');
+                findings.push('Testability failure - neurological disruption present');
             }
             if (document.getElementById('switching').value === 'failed') {
                 severityScore += 2;
@@ -484,7 +747,7 @@
 
             if (document.getElementById('standingStress').value === 'failed') {
                 severityScore += 3;
-                findings.push('SI ligament dysfunction detected');
+                findings.push('SI ligament dysfunction - sprained sacroiliac joint');
             }
 
             if (document.getElementById('brainCortexResult').value === 'failed') {
@@ -495,7 +758,7 @@
             const swayValue = document.getElementById('cerebellarSway').value;
             if (swayValue !== 'none' && swayValue !== '') {
                 severityScore += 3;
-                findings.push('Cerebellar imbalance - fall risk');
+                findings.push('Cerebellar imbalance - increased fall risk');
             }
 
             const jamarRight = parseFloat(document.getElementById('jamarRight').value) || 0;
@@ -554,68 +817,91 @@
             }
 
             let selectedServices = [];
-            if (document.getElementById('serviceAdjustment').checked) selectedServices.push('Chiropractic Adjustments');
-            if (document.getElementById('serviceART').checked) selectedServices.push('Active Release Technique');
-            if (document.getElementById('serviceDryNeedling').checked) selectedServices.push('Dry Needling');
-            if (document.getElementById('serviceRehab').checked) selectedServices.push('Functional Rehabilitation');
-            if (document.getElementById('serviceLaser').checked) selectedServices.push('Laser Therapy');
+            const serviceMap = {
+                'serviceAdjustment': 'Chiropractic Adjustments',
+                'serviceART': 'Active Release Technique',
+                'serviceDryNeedling': 'Dry Needling',
+                'serviceRehab': 'Functional Rehabilitation',
+                'serviceDecompression': 'Spinal Decompression',
+                'serviceLaser': 'Laser Therapy',
+                'serviceNormaTec': 'NormaTec Compression',
+                'serviceSauna': 'Infrared Sauna',
+                'serviceDetox': 'Detox Foot Bath'
+            };
+            
+            for (const [id, name] of Object.entries(serviceMap)) {
+                if (document.getElementById(id) && document.getElementById(id).checked) {
+                    selectedServices.push(name);
+                }
+            }
 
             let supplements = [];
             if (document.getElementById('suppJointSupport').checked) {
-                supplements.push({ name: 'Joint Support Protocol', products: ['Glucosamine/Chondroitin', 'Collagen Complex', 'Inflamma LF'] });
+                supplements.push({ name: 'Joint Support Protocol', products: ['Glucosamine/Chondroitin: 1,500 mg + 1,200 mg daily', 'Collagen Complex: 3 caps daily', 'Inflamma LF: 3 caps qid'] });
             }
             if (document.getElementById('suppAntiInflammatory').checked) {
-                supplements.push({ name: 'Anti-Inflammatory Protocol', products: ['Bio-A Curcumin', 'Bio-Omega 3', 'Inflamma LF'] });
+                supplements.push({ name: 'Anti-Inflammatory Protocol', products: ['Bio-A Curcumin: 1 cap breakfast & lunch, 1-2 caps dinner', 'Bio-Omega 3: 2 caps breakfast, 1 cap dinner', 'Inflamma LF: 3 caps qid'] });
+            }
+            if (document.getElementById('suppBoneHealth').checked) {
+                supplements.push({ name: 'Bone Health Protocol', products: ['Solray-D3 + K2 Spray: 10 sprays daily', 'Phyto Cal-Mag + Boron: 1 cap breakfast, 3 caps bedtime', 'Magnesium BisGlycinate: 1 cap before breakfast, 10am, 4pm, 2 caps bedtime'] });
             }
             if (document.getElementById('suppNerveSupport').checked) {
-                supplements.push({ name: 'Nerve Support Protocol', products: ['Methyl-B12 Spray', 'BioHealth Matrix', 'NAC Forte'] });
+                supplements.push({ name: 'Nerve Support Protocol', products: ['Methyl-B12 Spray: 2 sprays breakfast, 1 spray lunch & bedtime', 'BioHealth Matrix: 2 caps qid', 'NAC Forte: 1 cap breakfast & lunch, 2 caps dinner', 'PEA: 400-600 mg 2x daily'] });
             }
 
             let labs = [];
             if (document.getElementById('labCMP').checked) labs.push('Comprehensive Metabolic Panel');
+            if (document.getElementById('labCRP').checked) labs.push('hs-CRP');
+            if (document.getElementById('labESR').checked) labs.push('ESR');
             if (document.getElementById('labThyroid').checked) labs.push('Complete Thyroid Panel');
             if (document.getElementById('labVitD').checked) labs.push('Vitamin D (25-OH)');
+            if (document.getElementById('labB12').checked) labs.push('Vitamin B12 & MMA');
+            if (document.getElementById('labIron').checked) labs.push('Iron Panel');
 
             const selectedPlan = document.getElementById('selectedPlan').value;
-            let planName = 'No plan selected';
+            let planName = 'No membership plan selected';
             const planMap = {
-                'core-support': 'Core Support Plan - $128/month (2 Adjustments)',
-                'essential-care': 'Essential Care Plan - $240/month (4 Adjustments)',
-                'complete-care': 'Complete Care Plan - $595/month (Full M4 Program)'
+                'core-support': { name: 'Core Support Plan', details: '$128/month - 2 Adjustments/month, 15% off additional' },
+                'essential-care': { name: 'Essential Care Plan', details: '$240/month - 4 Adjustments/month, 15% off additional' },
+                'pain-relief': { name: 'Pain Relief Plan', details: '$315/month - 4 Adj + 2 Dry Needling + 2 Laser, 20% off additional' },
+                'active-recovery': { name: 'Active Recovery Plan', details: '$315/month - 4 Adjustments + 4 ART, 20% off additional' },
+                'complete-care': { name: 'Complete Care Plan', details: '$595/month - 4 Adj + 4 Rehab + 4 Laser + 4 ART, 25% off additional' }
             };
+            
             if (selectedPlan && planMap[selectedPlan]) {
-                planName = planMap[selectedPlan];
+                planName = planMap[selectedPlan].name;
             }
 
             let deviationsSection = '';
             if (selectedDeviations.length > 0) {
-                deviationsSection = '<h3>Postural Deviations (BACKSYS®/NECKSYS®)</h3><ul style="margin-left: 20px;">';
+                deviationsSection = '<h3>Postural Deviations and BACKSYS®/NECKSYS® Protocol</h3>';
                 selectedDeviations.forEach(dev => {
-                    deviationsSection += `<li>${dev.name}</li>`;
+                    deviationsSection += `<div style="margin: 10px 0; padding: 10px; background: #f8f9fa; border-left: 4px solid #4caf50; border-radius: 5px;">
+                        <p style="font-weight: bold;">${dev.name}</p>
+                        <p>${dev.description}</p>
+                    </div>`;
                 });
-                deviationsSection += '</ul>';
             }
 
             let vertebralAnalysis = '';
             if (selectedVerts.length > 0) {
-                vertebralAnalysis = '<h3>Vertebral Subluxation Analysis</h3>';
-                vertebralAnalysis += `<p><strong>Selected Vertebrae:</strong> ${selectedVerts.join(', ')}</p><div style="margin-left: 20px;">`;
+                vertebralAnalysis = '<h3>Vertebral Subluxation Analysis (Meric Chart)</h3>';
+                vertebralAnalysis += `<p><strong>Selected Vertebrae:</strong> ${selectedVerts.join(', ')}</p>`;
                 selectedVerts.forEach(vert => {
                     const data = vertCorrelations[vert];
                     if (data) {
-                        vertebralAnalysis += `<div style="margin: 10px 0; padding: 10px; background: #f0f7ff; border-left: 4px solid #667eea; border-radius: 5px;">
-                            <p><strong>${vert}:</strong></p>
+                        vertebralAnalysis += `<div style="margin: 10px 0; padding: 15px; background: #fff; border-left: 4px solid #667eea; border-radius: 5px;">
+                            <p><strong>${vert}: ${data.connection}</strong></p>
                             <p><em>Organs:</em> ${data.organs}</p>
                             <p><em>Symptoms:</em> ${data.symptoms}</p>
                         </div>`;
                     }
                 });
-                vertebralAnalysis += '</div>';
             }
 
             const reportHTML = `
-                ${logoDataURL ? `<div style="text-align: center; margin-bottom: 20px;"><img src="${logoDataURL}" style="max-width: 400px; max-height: 120px;"></div>` : ''}
-                <h2 style="text-align: center; color: #667eea;">COMPREHENSIVE M4 ASSESSMENT & REPORT</h2>
+                ${logoDataURL ? `<div style="text-align: center; margin-bottom: 30px;"><img src="${logoDataURL}" style="max-width: 400px; max-height: 120px;"></div>` : ''}
+                <h2 style="text-align: center; color: #667eea;">COMPREHENSIVE M4 ASSESSMENT & REPORT OF FINDINGS</h2>
                 
                 <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; margin: 20px 0;">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
@@ -625,83 +911,100 @@
                             <p><strong>Date:</strong> ${assessmentDate}</p>
                         </div>
                         <div>
-                            <p><strong>Severity:</strong> <span class="severity-badge ${severityClass}">${severityLevel}</span></p>
+                            <p><strong>Severity Level:</strong> <span class="severity-badge ${severityClass}">${severityLevel}</span></p>
                         </div>
                     </div>
                     <p style="margin-top: 15px;"><strong>Chief Complaint:</strong> ${chiefComplaint}</p>
+                    ${secondaryConcerns !== 'None noted' ? `<p><strong>Secondary Concerns:</strong> ${secondaryConcerns}</p>` : ''}
                 </div>
 
-                <h3>Clinical Findings</h3>
+                <h3>Clinical Findings Summary</h3>
                 <div style="background: #fff3e0; border-left: 4px solid #ff9800; padding: 15px; border-radius: 5px;">
-                    ${findings.length > 0 ? `<ul style="margin: 10px 0 10px 20px;">${findings.map(f => `<li>${f}</li>`).join('')}</ul>` : '<p>Assessment complete - all tests within functional ranges.</p>'}
+                    ${findings.length > 0 ? `<ul style="margin: 10px 0 10px 20px; line-height: 1.8;">${findings.map(f => `<li>${f}</li>`).join('')}</ul>` : '<p>Assessment complete - all tests within functional ranges.</p>'}
                 </div>
 
                 ${deviationsSection}
                 ${vertebralAnalysis}
 
-                <h3>PERSONALIZED TREATMENT PLAN</h3>
+                <h3>PERSONALIZED TREATMENT PLAN for ${patientName}</h3>
                 <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 10px; margin: 20px 0;">
-                    <h4 style="color: white;">Visit Schedule</h4>
-                    <p><strong>Frequency:</strong> ${recommendedFrequency}</p>
-                    <p><strong>Duration:</strong> ${recommendedDuration}</p>
+                    <h4 style="color: white; margin-bottom: 15px;">Visit Schedule</h4>
+                    <p style="font-size: 1.1em;"><strong>Recommended Frequency:</strong> ${recommendedFrequency}</p>
+                    <p style="font-size: 1.1em;"><strong>Treatment Duration:</strong> ${recommendedDuration}</p>
                 </div>
 
-                <h4>Recommended Services:</h4>
-                ${selectedServices.length > 0 ? `<ul style="margin: 15px 0 15px 20px;">${selectedServices.map(s => `<li><strong>${s}</strong></li>`).join('')}</ul>` : '<p>No services selected</p>'}
+                <div style="background: #f0f7ff; border-left: 4px solid #667eea; padding: 20px; border-radius: 5px; margin: 20px 0;">
+                    <h4>Recommended Services for ${patientName}:</h4>
+                    ${selectedServices.length > 0 ? `<ul style="margin: 15px 0 15px 20px; line-height: 2;">${selectedServices.map(service => `<li><strong>${service}</strong></li>`).join('')}</ul>` : '<p>No services selected</p>'}
+                </div>
 
-                <h4>Recommended Plan:</h4>
-                <div style="background: #e8f5e9; padding: 15px; border-radius: 5px; margin: 10px 0;">
-                    <p style="font-size: 1.2em;">${planName}</p>
+                <h3>Recommended Membership Plan</h3>
+                <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 20px; border-radius: 5px; margin: 20px 0;">
+                    <h4>${planName}</h4>
+                    ${selectedPlan && planMap[selectedPlan] ? `<p style="font-size: 1.2em;">${planMap[selectedPlan].details}</p>` : ''}
                 </div>
 
                 ${supplements.length > 0 ? `
-                    <h3>Supplement Protocol</h3>
-                    ${supplements.map(protocol => `
-                        <div style="background: #e8f5e9; padding: 15px; margin: 10px 0; border-radius: 8px; border-left: 4px solid #4caf50;">
-                            <h4 style="color: #4caf50;">${protocol.name}</h4>
-                            <ul style="margin: 10px 0 10px 20px;">${protocol.products.map(p => `<li>${p}</li>`).join('')}</ul>
-                        </div>
-                    `).join('')}
+                    <h3>Medicinal Nutrition - Supplement Protocol</h3>
+                    <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 20px; border-radius: 5px; margin: 20px 0;">
+                        <p style="margin-bottom: 15px;"><strong>Recommended Protocols for ${patientName}:</strong></p>
+                        ${supplements.map(protocol => `
+                            <div style="margin-bottom: 25px; padding: 15px; background: white; border-radius: 8px; border-left: 4px solid #667eea;">
+                                <h4 style="color: #4caf50; margin-top: 0;">${protocol.name}</h4>
+                                <ul style="margin: 10px 0 10px 20px; line-height: 2;">${protocol.products.map(product => `<li>${product}</li>`).join('')}</ul>
+                            </div>
+                        `).join('')}
+                    </div>
                 ` : ''}
 
                 ${labs.length > 0 ? `
-                    <h3>Recommended Laboratory Testing</h3>
-                    <ul style="margin: 10px 0 10px 20px;">${labs.map(lab => `<li>${lab}</li>`).join('')}</ul>
+                    <h3>Metabolic Connection - Recommended Laboratory Testing</h3>
+                    <div style="background: #fce4ec; border-left: 4px solid #e91e63; padding: 20px; border-radius: 5px; margin: 20px 0;">
+                        <p style="margin-bottom: 15px;"><strong>Recommended Labs for ${patientName}:</strong></p>
+                        <ul style="margin: 10px 0 10px 20px; line-height: 2;">${labs.map(lab => `<li>${lab}</li>`).join('')}</ul>
+                    </div>
                 ` : ''}
 
-                <h3 style="color: #d32f2f;">⚠️ LONG-TERM HEALTH CONSEQUENCES (If Untreated)</h3>
-                <div style="background: #ffebee; border-left: 4px solid #d32f2f; padding: 20px; border-radius: 5px;">
-                    <ul style="margin: 10px 0 10px 20px;">
-                        <li><strong>Progressive spinal degeneration</strong></li>
+                <h3 style="color: #d32f2f;">⚠️ LONG-TERM HEALTH CONSEQUENCES (If Left Untreated)</h3>
+                <div style="background: #ffebee; border-left: 4px solid #d32f2f; padding: 20px; border-radius: 5px; margin: 20px 0;">
+                    <p style="font-size: 1.1em; font-weight: bold; margin-bottom: 15px;">${patientName}, based on your specific assessment findings, failing to address these issues will lead to:</p>
+                    <ul style="margin: 10px 0 10px 20px; line-height: 1.8;">
+                        <li><strong>Progressive spinal degeneration</strong> - Your dysfunctional movement patterns will accelerate joint breakdown</li>
                         <li><strong>Chronic pain and decreased quality of life</strong></li>
                         <li><strong>Increased injury risk</strong></li>
-                        ${avgGrip > 0 && avgGrip < 60 ? '<li><strong>CRITICAL: Increased mortality risk</strong></li>' : ''}
-                        ${scaleDiff > 10 ? '<li><strong>Accelerated joint degeneration</strong></li>' : ''}
-                        ${swayValue !== 'none' && swayValue !== '' ? '<li><strong>CRITICAL: Fall risk with life-altering injuries</strong></li>' : ''}
-                        <li><strong>Neurological decline</strong></li>
+                        ${avgGrip > 0 && avgGrip < 60 ? '<li><strong>CRITICAL: Increased mortality risk</strong> - Low grip strength predicts cardiovascular events</li>' : ''}
+                        ${scaleDiff > 10 ? '<li><strong>Accelerated unilateral joint degeneration</strong> - One-sided hip/knee arthritis requiring replacement</li>' : ''}
+                        ${swayValue !== 'none' && swayValue !== '' ? '<li><strong>CRITICAL: Fall risk with life-altering injuries</strong> - Hip fractures, traumatic brain injury</li>' : ''}
+                        <li><strong>Neurological decline</strong> - Impaired brain-body communication</li>
                     </ul>
-                    <p style="margin-top: 15px; font-weight: bold;">These problems are FAR EASIER to correct NOW. The time to act is TODAY.</p>
+                    <p style="margin-top: 20px; padding: 15px; background: white; border-radius: 5px; font-weight: bold; color: #d32f2f;">
+                        ${patientName}, these problems are FAR EASIER to correct NOW. Once structural changes occur, treatment becomes exponentially more difficult. The time to act is NOW.
+                    </p>
                 </div>
 
-                <h3>Your Next Steps</h3>
-                <div style="background: #e3f2fd; padding: 20px; border-radius: 5px;">
+                <h3>Your Next Steps, ${patientName}</h3>
+                <div style="background: #e3f2fd; border-left: 4px solid #667eea; padding: 20px; border-radius: 5px; margin: 20px 0;">
                     <ol style="margin: 10px 0 10px 20px; line-height: 2;">
-                        <li><strong>Begin Care Immediately</strong></li>
-                        <li><strong>Commit to ${recommendedFrequency}</strong></li>
-                        ${selectedDeviations.length > 0 ? '<li><strong>Perform Home Exercises</strong></li>' : ''}
-                        ${supplements.length > 0 ? '<li><strong>Follow Supplement Protocol</strong></li>' : ''}
-                        ${labs.length > 0 ? '<li><strong>Complete Lab Testing</strong></li>' : ''}
-                        <li><strong>Enroll in ${planName}</strong></li>
+                        <li><strong>Begin Care Immediately:</strong> Your specific dysfunctions require prompt attention</li>
+                        <li><strong>Commit to ${recommendedFrequency}:</strong> Consistency is essential based on your ${severityLevel} severity</li>
+                        ${selectedDeviations.length > 0 ? '<li><strong>Perform Home Exercises:</strong> Follow the BACKSYS®/NECKSYS® protocols prescribed</li>' : ''}
+                        ${supplements.length > 0 ? '<li><strong>Follow Supplement Protocol:</strong> Your customized nutritional support accelerates healing</li>' : ''}
+                        ${labs.length > 0 ? '<li><strong>Complete Recommended Lab Testing:</strong> Identify underlying metabolic factors</li>' : ''}
+                        <li><strong>Enroll in ${planName}:</strong> Secure your treatment consistency</li>
                     </ol>
                 </div>
 
-                <div style="text-align: center; margin-top: 30px; padding: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px;">
-                    <h3 style="color: white;">You Have a Clear Path Forward</h3>
-                    <p style="font-size: 1.2em; margin: 15px 0;">Let's discuss your questions and get you started TODAY!</p>
+                <div style="text-align: center; margin-top: 40px; padding: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px;">
+                    <h3 style="color: white; border: none; margin-bottom: 15px;">${patientName}, You Have a Clear Path Forward</h3>
+                    <p style="font-size: 1.2em; margin: 15px 0;">Your comprehensive assessment reveals specific, treatable dysfunctions.</p>
+                    <p style="font-size: 1.2em; margin: 15px 0;">We have a proven treatment plan tailored specifically to YOUR findings.</p>
+                    <p style="font-size: 1.3em; margin: 20px 0; font-weight: bold;">The question is not whether these issues will progress - they will.</p>
+                    <p style="font-size: 1.3em; margin: 20px 0; font-weight: bold;">The question is: Will you address them now while they're correctable?</p>
+                    <p style="font-size: 1.2em; margin-top: 25px;">Let's discuss your questions and get you started TODAY!</p>
                 </div>
 
                 <div style="margin-top: 30px; padding: 20px; border-top: 2px solid #667eea; text-align: center;">
-                    <p><strong>Seay Wellness</strong><br>Garner, NC | (919) 662-0520<br>www.seaywellness.com</p>
+                    <p style="color: #666;"><strong>Seay Wellness</strong><br>Performance & Longevity<br>Garner, NC | (919) 662-0520<br>www.seaywellness.com</p>
                 </div>
             `;
 
